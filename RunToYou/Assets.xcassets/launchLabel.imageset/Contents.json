@@ -1,11 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "runToYou.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "launchLabel.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
