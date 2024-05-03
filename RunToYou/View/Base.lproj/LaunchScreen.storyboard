@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LuaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="ulX-Wr-egU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="J1a-Iq-3pI">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchLabel" translatesAutoresizingMaskIntoConstraints="NO" id="KZu-5U-p6g">
@@ -30,12 +30,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ulX-Wr-egU" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="PYj-GK-HJG"/>
+                            <constraint firstItem="J1a-Iq-3pI" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ALQ-Jn-Pku"/>
+                            <constraint firstItem="J1a-Iq-3pI" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="GOY-oX-x34"/>
                             <constraint firstItem="KZu-5U-p6g" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="QSX-f5-f7W"/>
-                            <constraint firstAttribute="bottom" secondItem="ulX-Wr-egU" secondAttribute="bottom" id="pfE-2V-eVo"/>
+                            <constraint firstItem="J1a-Iq-3pI" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Wvc-BI-G2I"/>
+                            <constraint firstAttribute="bottom" secondItem="J1a-Iq-3pI" secondAttribute="bottom" id="cWc-T6-q3F"/>
                             <constraint firstItem="KZu-5U-p6g" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="sTw-Gd-nVD"/>
-                            <constraint firstAttribute="trailing" secondItem="ulX-Wr-egU" secondAttribute="trailing" id="z8f-3J-m6J"/>
-                            <constraint firstItem="ulX-Wr-egU" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="zny-yB-l7r"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -45,7 +45,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LuaunchScreen" width="1500" height="3248"/>
+        <image name="LaunchScreen" width="375" height="812"/>
         <image name="launchLabel" width="122.5" height="36.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
