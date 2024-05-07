@@ -250,7 +250,7 @@ class AppAuthView: UIView {
         btn.backgroundColor = UIColor.customColor(.MainDark)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.customFont(.NotoSans, family: .Regular, size: 18)
-        btn.layer.cornerRadius = 12
+        btn.layer.cornerRadius = 7
         return btn
     }()
     

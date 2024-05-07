@@ -11,11 +11,15 @@ import RxCocoa
 import RxSwift
 import RxKakaoSDKUser
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
+import SnapKit
 
 final class LoginViewController: UIViewController, StoryboardView {
     
     private let loginView = LoginView()
     var disposeBag = DisposeBag()
+    let google = GIDSignInButton()
     
     deinit {
         print("\(type(of: self)): Deinited")
@@ -26,22 +30,37 @@ final class LoginViewController: UIViewController, StoryboardView {
         self.view = loginView
     }
     
-    func bind(reactor: ViewReactor) {
+    func bind(reactor: LoginReactor) {
+        reactor.vcDelegate = self
         //Action
+        loginView.googleButton.rx.tap
+        .map { Reactor.Action.googleLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
         
-        //increaseButton.rx.tap //rxcocoa
-        loginView.loginButton.rx.tap
-        .map { Reactor.Action.login}
+        loginView.kakaoButton.rx.tap
+        .map { Reactor.Action.kakaoLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
+        
+        loginView.naverButton.rx.tap
+        .map { Reactor.Action.naverLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
+        
+        loginView.appleButton.rx.tap
+        .map { Reactor.Action.appleLogin}
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
         
         //State
-        reactor.state.map { $0.loginResult }
-            .subscribe(onNext: { result in
+        reactor.state.map { $0.kakaoLoginResult }
+            .subscribe(onNext: { [weak self] result in
                 switch result {
                 case .success(let oauthToken):
                     print("Login success: \(oauthToken)")
-                    self.kakaoGetUserInfo()
+                    self?.kakaoGetUserInfo()
+                    self?.goNextView()
                     // Handle success
                 case .failure(let error):
                     print("Login error: \(error)")
@@ -49,6 +68,25 @@ final class LoginViewController: UIViewController, StoryboardView {
                 case .none:
                     print("nothing")
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        
+        reactor.state.map { $0.googleLoginResult }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success(let oauthToken):
+                    print("Login success: \(oauthToken)")
+                    //self?.kakaoGetUserInfo()
+                    self?.goNextView()
+                    // Handle success
+                case .failure(let error):
+                    print("Login error: \(error)")
+                    // Handle error
+                case .none:
+                    print("nothing")
+                }
+                
             })
             .disposed(by: disposeBag)
     }
@@ -77,4 +115,25 @@ final class LoginViewController: UIViewController, StoryboardView {
             })
             .disposed(by: disposeBag)
     }
+    
+    func goNextView() {
+        let nextView = IntroduceViewController()
+        nextView.reactor = IntroduceReactor()
+        navigationController?.pushViewController(nextView, animated: true)
+    }
+}
+
+extension LoginViewController {
+    func handleSignInButton() {
+      GIDSignIn.sharedInstance.signIn(
+        withPresenting: self) { signInResult, error in
+          guard let result = signInResult else {
+            // Inspect error
+            return
+          }
+          // If sign in succeeded, display the app's main content View.
+        }
+    }
+    
+    
 }

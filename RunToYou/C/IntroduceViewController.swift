@@ -1,18 +1,17 @@
 //
-//  AppAuthViewController.swift
+//  ViewController.swift
 //  RunToYou
 //
-//  Created by 23 09 on 2024/05/02.
+//  Created by 이정환 on 4/22/24.
 //
-
 import UIKit
 import ReactorKit
 import RxCocoa
 import RxSwift
 
-final class AppAuthViewController: UIViewController, StoryboardView {
+final class IntroduceViewController: UIViewController, StoryboardView {
 
-    private let appAuthView = AppAuthView()
+    private let introduceView = IntroduceView()
     var disposeBag = DisposeBag()
     
     deinit {
@@ -21,19 +20,19 @@ final class AppAuthViewController: UIViewController, StoryboardView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = appAuthView
-
+        self.view = introduceView
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    func bind(reactor: AuthReactor) {
-        appAuthView.nextButton.rx.tap
+    func bind(reactor: IntroduceReactor) {
+        introduceView.nextButton.rx.tap
             .bind(onNext: { [weak self] in self?.goNextView() })
             .disposed(by: disposeBag)
     }
     
     func goNextView() {
-        let nextView = IntroduceViewController()
-        nextView.reactor = IntroduceReactor()
+        let nextView = LoginViewController()
+        nextView.reactor = LoginReactor()
         navigationController?.pushViewController(nextView, animated: true)
     }
 

@@ -2,18 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>GIDClientID</key>
+    <string>14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1.apps.googleusercontent.com</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1</string>
+        </array>
+      </dict>
+    </array>
+    
 	<key>UIAppFonts</key>
 	<array>
-		<string>NotoSansKR-VariableFont_wght.ttf</string>
+		<string>NotoSansKR-Thin.ttf</string>
 		<string>NotoSansKR-Regular.ttf</string>
 		<string>NotoSansKR-Medium.ttf</string>
-		<string>NotoSansKR-Thin.ttf</string>
 		<string>NotoSansKR-Light.ttf</string>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
+		<string>NotoSansKR-VariableFont_wght.ttf</string>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
@@ -33,6 +40,19 @@
 				<string>kakao625a045f6d46a73f5449c3345256774d:ouath</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
