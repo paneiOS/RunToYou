@@ -31,9 +31,9 @@ final class IntroduceViewController: UIViewController, StoryboardView {
     }
     
     func goNextView() {
-       // let nextView = LoginViewController()
-       // nextView.reactor = LoginReactor()
-       // navigationController?.pushViewController(nextView, animated: true)
+        let nextView = LoginViewController()
+        nextView.reactor = LoginReactor()
+        navigationController?.pushViewController(nextView, animated: true)
     }
 
 }
