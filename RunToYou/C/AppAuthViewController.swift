@@ -32,9 +32,9 @@ final class AppAuthViewController: UIViewController, StoryboardView {
     }
     
     func goNextView() {
-//        let nextView = IntroduceViewController()
-//        nextView.reactor = IntroduceReactor()
-//        navigationController?.pushViewController(nextView, animated: true)
+        let nextView = IntroduceViewController()
+        nextView.reactor = IntroduceReactor()
+        navigationController?.pushViewController(nextView, animated: true)
     }
 
 }
