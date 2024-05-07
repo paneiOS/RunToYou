@@ -11,12 +11,15 @@ import RxCocoa
 import RxSwift
 import RxKakaoSDKUser
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
 import SnapKit
 
 final class LoginViewController: UIViewController, StoryboardView {
     
     private let loginView = LoginView()
     var disposeBag = DisposeBag()
+    let google = GIDSignInButton()
     
     deinit {
         print("\(type(of: self)): Deinited")
@@ -67,6 +70,25 @@ final class LoginViewController: UIViewController, StoryboardView {
                 }
             })
             .disposed(by: disposeBag)
+        
+        
+        reactor.state.map { $0.googleLoginResult }
+            .subscribe(onNext: { [weak self] result in
+                switch result {
+                case .success(let oauthToken):
+                    print("Login success: \(oauthToken)")
+                    //self?.kakaoGetUserInfo()
+                    self?.goNextView()
+                    // Handle success
+                case .failure(let error):
+                    print("Login error: \(error)")
+                    // Handle error
+                case .none:
+                    print("nothing")
+                }
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     private func kakaoGetUserInfo() {
@@ -100,4 +122,3 @@ final class LoginViewController: UIViewController, StoryboardView {
         navigationController?.pushViewController(nextView, animated: true)
     }
 }
-

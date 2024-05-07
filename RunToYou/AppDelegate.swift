@@ -12,13 +12,23 @@ import RxCocoa
 import RxKakaoSDKCommon
 import RxSwift
 import RxKakaoSDKAuth
+import GoogleSignIn
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        UILabel.appearance().textColor = .black
         //kako login
         RxKakaoSDK.initSDK(appKey: "625a045f6d46a73f5449c3345256774d")
+        //google login
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+          if error != nil || user == nil {
+            // Show the app's signed-out state.
+          } else {
+            // Show the app's signed-in state.
+          }
+        }
         return true
     }
 

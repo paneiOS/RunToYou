@@ -9,6 +9,7 @@ import UIKit
 import ReactorKit
 import KakaoSDKAuth
 import KakaoSDKUser
+import GoogleSignIn
 
 final class LoginReactor: Reactor {
     weak var vcDelegate: UIViewController?
@@ -27,7 +28,7 @@ final class LoginReactor: Reactor {
     }
     
     enum Mutation {
-        case setGoogleLoginResult(Result<OAuthToken, Error>)
+        case setGoogleLoginResult(Result<GIDSignInResult, Error>)
         case setKaKaoLoginResult(Result<OAuthToken, Error>)
         case setNaverLoginResult(Result<OAuthToken, Error>)
         case setAppleLoginResult(Result<OAuthToken, Error>)
@@ -35,7 +36,7 @@ final class LoginReactor: Reactor {
     }
     
     struct State {
-        var googleLoginResult: Result<OAuthToken, Error>?
+        var googleLoginResult: Result<GIDSignInResult, Error>?
         var kakaoLoginResult: Result<OAuthToken, Error>?
         var naverLoginResult: Result<OAuthToken, Error>?
         var appleLoginResult: Result<OAuthToken, Error>?
@@ -45,7 +46,18 @@ final class LoginReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .googleLogin:
-            return Observable.just(Mutation.logout)
+            return Observable.create() { emitter in
+                GIDSignIn.sharedInstance.signIn(
+                    withPresenting: self.vcDelegate!) { signInResult, error in
+                    guard let result = signInResult else {
+                        emitter.onNext(.setGoogleLoginResult(.failure(error!)))
+                      return
+                    }
+                      emitter.onNext(.setGoogleLoginResult(.success(result)))
+                      emitter.onCompleted()
+                  }
+                return Disposables.create()
+            }
         case .kakaoLogin:
                 guard UserApi.isKakaoTalkLoginAvailable() else { return .empty() }
                         return UserApi.shared.rx.loginWithKakaoTalk()
