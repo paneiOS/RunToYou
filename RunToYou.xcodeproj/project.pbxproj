@@ -17,6 +17,16 @@
 		39E6F0FB2BD68C3500C8D4C9 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F0FA2BD68C3500C8D4C9 /* Moya */; };
 		39E6F10E2BD68FFF00C8D4C9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10D2BD68FFF00C8D4C9 /* RxCocoa */; };
 		39E6F1102BD68FFF00C8D4C9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10F2BD68FFF00C8D4C9 /* RxSwift */; };
+		6C0C2C512BE9FA2A00DCAC00 /* NotoSansKR-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C2C4C2BE9FA2900DCAC00 /* NotoSansKR-Medium.ttf */; };
+		6C0C2C522BE9FA2A00DCAC00 /* NotoSansKR-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C2C4D2BE9FA2900DCAC00 /* NotoSansKR-VariableFont_wght.ttf */; };
+		6C0C2C532BE9FA2A00DCAC00 /* NotoSansKR-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C2C4E2BE9FA2900DCAC00 /* NotoSansKR-Light.ttf */; };
+		6C0C2C542BE9FA2A00DCAC00 /* NotoSansKR-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C2C4F2BE9FA2900DCAC00 /* NotoSansKR-Thin.ttf */; };
+		6C0C2C552BE9FA2A00DCAC00 /* NotoSansKR-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C0C2C502BE9FA2900DCAC00 /* NotoSansKR-Regular.ttf */; };
+		6C0C2C572BE9FA5400DCAC00 /* AppAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C2C562BE9FA5400DCAC00 /* AppAuthViewController.swift */; };
+		6C0C2C5A2BE9FA7300DCAC00 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6C0C2C592BE9FA7300DCAC00 /* ReactorKit */; };
+		6C0C2C5C2BE9FAA400DCAC00 /* AppAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C2C5B2BE9FAA400DCAC00 /* AppAuthView.swift */; };
+		6C0C2C5E2BE9FABB00DCAC00 /* AuthReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C2C5D2BE9FABB00DCAC00 /* AuthReactor.swift */; };
+		6C0C2C602BE9FAE600DCAC00 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0C2C5F2BE9FAE600DCAC00 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,15 @@
 		39E6F0EB2BD68BAC00C8D4C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39E6F0EE2BD68BAC00C8D4C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39E6F0F02BD68BAC00C8D4C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C0C2C4C2BE9FA2900DCAC00 /* NotoSansKR-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.ttf"; sourceTree = "<group>"; };
+		6C0C2C4D2BE9FA2900DCAC00 /* NotoSansKR-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		6C0C2C4E2BE9FA2900DCAC00 /* NotoSansKR-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Light.ttf"; sourceTree = "<group>"; };
+		6C0C2C4F2BE9FA2900DCAC00 /* NotoSansKR-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.ttf"; sourceTree = "<group>"; };
+		6C0C2C502BE9FA2900DCAC00 /* NotoSansKR-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.ttf"; sourceTree = "<group>"; };
+		6C0C2C562BE9FA5400DCAC00 /* AppAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewController.swift; sourceTree = "<group>"; };
+		6C0C2C5B2BE9FAA400DCAC00 /* AppAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthView.swift; sourceTree = "<group>"; };
+		6C0C2C5D2BE9FABB00DCAC00 /* AuthReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthReactor.swift; sourceTree = "<group>"; };
+		6C0C2C5F2BE9FAE600DCAC00 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +57,7 @@
 				39E6F10E2BD68FFF00C8D4C9 /* RxCocoa in Frameworks */,
 				39E6F0FB2BD68C3500C8D4C9 /* Moya in Frameworks */,
 				39E6F1102BD68FFF00C8D4C9 /* RxSwift in Frameworks */,
+				6C0C2C5A2BE9FA7300DCAC00 /* ReactorKit in Frameworks */,
 				39E6F0F82BD68C1200C8D4C9 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,13 +86,54 @@
 			children = (
 				39E6F0E22BD68BAB00C8D4C9 /* AppDelegate.swift */,
 				39E6F0E42BD68BAB00C8D4C9 /* SceneDelegate.swift */,
-				39E6F0E62BD68BAB00C8D4C9 /* ViewController.swift */,
-				39E6F0EB2BD68BAC00C8D4C9 /* Assets.xcassets */,
-				39E6F0ED2BD68BAC00C8D4C9 /* LaunchScreen.storyboard */,
 				39E6F0F02BD68BAC00C8D4C9 /* Info.plist */,
 				39D562B42BD696A000111E9C /* .swiftlint.yml */,
+				6C0C2C4A2BE9F95900DCAC00 /* View */,
+				6C0C2C492BE9F95100DCAC00 /* C */,
+				6C0C2C482BE9F94900DCAC00 /* VM */,
+				39E6F0E62BD68BAB00C8D4C9 /* ViewController.swift */,
 			);
 			path = RunToYou;
+			sourceTree = "<group>";
+		};
+		6C0C2C482BE9F94900DCAC00 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				6C0C2C5D2BE9FABB00DCAC00 /* AuthReactor.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		6C0C2C492BE9F95100DCAC00 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				6C0C2C562BE9FA5400DCAC00 /* AppAuthViewController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		6C0C2C4A2BE9F95900DCAC00 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				39E6F0ED2BD68BAC00C8D4C9 /* LaunchScreen.storyboard */,
+				39E6F0EB2BD68BAC00C8D4C9 /* Assets.xcassets */,
+				6C0C2C4B2BE9FA0700DCAC00 /* Fonts */,
+				6C0C2C5B2BE9FAA400DCAC00 /* AppAuthView.swift */,
+				6C0C2C5F2BE9FAE600DCAC00 /* Extensions.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6C0C2C4B2BE9FA0700DCAC00 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6C0C2C4E2BE9FA2900DCAC00 /* NotoSansKR-Light.ttf */,
+				6C0C2C4C2BE9FA2900DCAC00 /* NotoSansKR-Medium.ttf */,
+				6C0C2C502BE9FA2900DCAC00 /* NotoSansKR-Regular.ttf */,
+				6C0C2C4F2BE9FA2900DCAC00 /* NotoSansKR-Thin.ttf */,
+				6C0C2C4D2BE9FA2900DCAC00 /* NotoSansKR-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -97,6 +158,7 @@
 				39E6F0FA2BD68C3500C8D4C9 /* Moya */,
 				39E6F10D2BD68FFF00C8D4C9 /* RxCocoa */,
 				39E6F10F2BD68FFF00C8D4C9 /* RxSwift */,
+				6C0C2C592BE9FA7300DCAC00 /* ReactorKit */,
 			);
 			productName = RunToYou;
 			productReference = 39E6F0DF2BD68BAB00C8D4C9 /* RunToYou.app */;
@@ -130,6 +192,7 @@
 				39E6F0F62BD68C1100C8D4C9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				39E6F0F92BD68C3500C8D4C9 /* XCRemoteSwiftPackageReference "Moya" */,
 				39E6F10C2BD68FFF00C8D4C9 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				6C0C2C582BE9FA7300DCAC00 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 			);
 			productRefGroup = 39E6F0E02BD68BAB00C8D4C9 /* Products */;
 			projectDirPath = "";
@@ -146,7 +209,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				39D562B52BD696A000111E9C /* .swiftlint.yml in Resources */,
+				6C0C2C532BE9FA2A00DCAC00 /* NotoSansKR-Light.ttf in Resources */,
+				6C0C2C512BE9FA2A00DCAC00 /* NotoSansKR-Medium.ttf in Resources */,
+				6C0C2C552BE9FA2A00DCAC00 /* NotoSansKR-Regular.ttf in Resources */,
+				6C0C2C522BE9FA2A00DCAC00 /* NotoSansKR-VariableFont_wght.ttf in Resources */,
 				39E6F0EF2BD68BAC00C8D4C9 /* LaunchScreen.storyboard in Resources */,
+				6C0C2C542BE9FA2A00DCAC00 /* NotoSansKR-Thin.ttf in Resources */,
 				39E6F0EC2BD68BAC00C8D4C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,9 +248,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C0C2C5C2BE9FAA400DCAC00 /* AppAuthView.swift in Sources */,
+				6C0C2C572BE9FA5400DCAC00 /* AppAuthViewController.swift in Sources */,
+				6C0C2C5E2BE9FABB00DCAC00 /* AuthReactor.swift in Sources */,
 				39E6F0E72BD68BAB00C8D4C9 /* ViewController.swift in Sources */,
 				39E6F0E32BD68BAB00C8D4C9 /* AppDelegate.swift in Sources */,
 				39E6F0E52BD68BAB00C8D4C9 /* SceneDelegate.swift in Sources */,
+				6C0C2C602BE9FAE600DCAC00 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +495,14 @@
 				minimumVersion = 6.7.0;
 			};
 		};
+		6C0C2C582BE9FA7300DCAC00 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -445,6 +525,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 39E6F10C2BD68FFF00C8D4C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		6C0C2C592BE9FA7300DCAC00 /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C0C2C582BE9FA7300DCAC00 /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
