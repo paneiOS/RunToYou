@@ -10,35 +10,35 @@ import SnapKit
 
 final class AppAuthViewController: UIViewController {
 
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "앱 서비스 접근 권한 안내"
         label.textAlignment = .center
         label.font = .customFont(.notoSans, family: .regular, size: 24)
         return label
     }()
-    let recordRow = AuthViewRow(
+    private let recordRow = AuthViewRow(
         imageName: "smart_phone",
         titleString: "기기 및 앱 기록",
         detailString: "서비스 개선 및 오류 확인",
         isOptional: false
     )
-    let alarmRow = AuthViewRow(
+    private let alarmRow = AuthViewRow(
         imageName: "bell",
         titleString: "알림",
         detailString: "푸시 알림 및 메시지 수신 안내",
         isOptional: true)
-    let cameraRow = AuthViewRow(
+    private let cameraRow = AuthViewRow(
         imageName: "photo_camera",
         titleString: "사진/카메라",
         detailString: "채팅방 사진 업로드",
         isOptional: true)
-    let locationRow = AuthViewRow(
+    private let locationRow = AuthViewRow(
         imageName: "location_on",
         titleString: "위치",
         detailString: "현재 위치 및 이동경로 GPS 기능",
         isOptional: true)
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
         label.text = "* 권한을 허용하지 않아도 앱 이용이 가능하지만 \n 일부 서비스가 제한될 수 있습니다"
@@ -46,7 +46,7 @@ final class AppAuthViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    let nextButton: UIButton = {
+    private let nextButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("다음", for: .normal)
         btn.backgroundColor = UIColor.customColor(.mainDark)
@@ -60,12 +60,12 @@ final class AppAuthViewController: UIViewController {
         setAddTarget()
         setupLayout()
     }
-    func setAddTarget() {
+    private func setAddTarget() {
         nextButton.addTarget(self, action: #selector(goNextView), for: .touchUpInside)
     }
     @objc func goNextView() {
     }
-    func setupLayout() {
+    private func setupLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(titleLabel)
         self.view.addSubview(recordRow)
@@ -118,7 +118,7 @@ final class AppAuthViewController: UIViewController {
     }
 }
 
-class AuthViewRow: UIView {
+final private class AuthViewRow: UIView {
     let imageView: UIImageView
     let titleLabel: UILabel = {
        let label = UILabel()
