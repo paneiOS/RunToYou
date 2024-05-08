@@ -155,9 +155,8 @@ final private class AuthViewRow: UIView {
         addSubview(optionalLabel)
         addSubview(detailLabel)
         imageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview()
-            $0.width.height.equalTo(24)
+            $0.centerY.leading.equalToSuperview()
+            $0.size.equalTo(24)
         }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(5)
