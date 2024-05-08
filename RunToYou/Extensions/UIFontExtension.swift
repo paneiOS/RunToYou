@@ -7,7 +7,6 @@
 
 import UIKit
 
-// MARK: - 폰트 extension
 extension UIFont {
     enum Family: String {
         case black, bold, light, medium, regular, thin
