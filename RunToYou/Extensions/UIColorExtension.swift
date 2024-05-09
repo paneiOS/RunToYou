@@ -18,24 +18,11 @@ extension UIColor {
     static func customColor(_ color: CustomColor) -> UIColor {
         switch color {
         case .mainDark:
-            return getColor(hexString: "222222")
+            return UIColor(red: 34, green: 34, blue: 34, alpha: 1)
         case .mainBlue:
-            return getColor(hexString: "4285F4")
+            return UIColor(red: 66, green: 133, blue: 244, alpha: 1)
         case .mainRed:
-            return getColor(hexString: "F2764F")
+            return UIColor(red: 242, green: 118, blue: 79, alpha: 1)
         }
     }
-
-    static func getColor(hexString: String, alpha: CGFloat = 1.0) -> UIColor {
-        var hexSanitized = hexString.trimmingCharacters(in: .whitespacesAndNewlines)
-        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-        var rgb: UInt64 = 0
-        Scanner(string: hexSanitized).scanHexInt64(&rgb)
-        let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
-        let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
-        let blue = CGFloat(rgb & 0x0000FF) / 255.0
-
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
-    }
-
 }
