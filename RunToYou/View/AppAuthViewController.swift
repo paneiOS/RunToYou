@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 final class AppAuthViewController: UIViewController {
+    let disposeBag = DisposeBag()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -69,10 +72,14 @@ final class AppAuthViewController: UIViewController {
     }
 
     private func setAddTarget() {
-        nextButton.addTarget(self, action: #selector(goNextView), for: .touchUpInside)
+        nextButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.goNextView()
+            })
+            .disposed(by: disposeBag)
     }
 
-    @objc func goNextView() {
+    private func goNextView() {
     }
 
     private func setupLayout() {
