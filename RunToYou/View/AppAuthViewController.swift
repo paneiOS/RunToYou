@@ -17,27 +17,32 @@ final class AppAuthViewController: UIViewController {
         label.font = .customFont(.notoSans, family: .regular, size: 24)
         return label
     }()
+
     private let recordRow = AuthViewRow(
         imageName: "smart_phone",
         titleString: "기기 및 앱 기록",
         detailString: "서비스 개선 및 오류 확인",
         isOptional: false
     )
+
     private let alarmRow = AuthViewRow(
         imageName: "bell",
         titleString: "알림",
         detailString: "푸시 알림 및 메시지 수신 안내",
         isOptional: true)
+
     private let cameraRow = AuthViewRow(
         imageName: "photo_camera",
         titleString: "사진/카메라",
         detailString: "채팅방 사진 업로드",
         isOptional: true)
+
     private let locationRow = AuthViewRow(
         imageName: "location_on",
         titleString: "위치",
         detailString: "현재 위치 및 이동경로 GPS 기능",
         isOptional: true)
+
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
@@ -46,6 +51,7 @@ final class AppAuthViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+
     private let nextButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("다음", for: .normal)
@@ -55,16 +61,20 @@ final class AppAuthViewController: UIViewController {
         btn.layer.cornerRadius = 7
         return btn
     }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setAddTarget()
         setupLayout()
     }
+
     private func setAddTarget() {
         nextButton.addTarget(self, action: #selector(goNextView), for: .touchUpInside)
     }
+
     @objc func goNextView() {
     }
+
     private func setupLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(titleLabel)
@@ -79,39 +89,38 @@ final class AppAuthViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.top.equalToSuperview().inset(140)
         }
+
         recordRow.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(60)
-            $0.leading.equalTo(15)
-            $0.trailing.equalTo(-15)
-            $0.height.equalTo(51)
+            $0.leading.trailing.equalToSuperview().inset(15)
         }
+
         alarmRow.snp.makeConstraints {
             $0.top.equalTo(recordRow.snp.bottom).offset(10)
-            $0.leading.equalTo(15)
-            $0.trailing.equalTo(-15)
-            $0.height.equalTo(51)
+            $0.leading.trailing.equalToSuperview().inset(15)
         }
+
         cameraRow.snp.makeConstraints {
             $0.top.equalTo(alarmRow.snp.bottom).offset(10)
-            $0.leading.equalTo(15)
-            $0.trailing.equalTo(-15)
-            $0.height.equalTo(51)
+            $0.leading.trailing.equalToSuperview().inset(15)
         }
+
         locationRow.snp.makeConstraints {
             $0.top.equalTo(cameraRow.snp.bottom).offset(10)
-            $0.leading.equalTo(15)
-            $0.trailing.equalTo(-15)
-            $0.height.equalTo(51)
+            $0.leading.trailing.equalToSuperview().inset(15)
         }
+
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(locationRow.snp.bottom).offset(60)
             $0.width.equalToSuperview()
         }
+
         nextButton.snp.makeConstraints {
             $0.height.equalTo(55)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
+
     }
     deinit {
         print("\(type(of: self)): Deinited")
@@ -136,6 +145,7 @@ final private class AuthViewRow: UIView {
         label.font = .customFont(.notoSans, family: .thin, size: 12)
          return label
      }()
+
     init( imageName: String, titleString: String, detailString: String, isOptional: Bool) {
         self.titleLabel.text = titleString
         self.detailLabel.text = detailString
@@ -146,26 +156,36 @@ final private class AuthViewRow: UIView {
         super.init(frame: .zero)
         setupLayout()
     }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     func setupLayout() {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(optionalLabel)
         addSubview(detailLabel)
+
+        self.snp.makeConstraints {
+            $0.height.equalTo(51)
+        }
+
         imageView.snp.makeConstraints {
             $0.centerY.leading.equalToSuperview()
             $0.size.equalTo(24)
         }
+
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(5)
             $0.leading.equalTo(imageView.snp.trailing).offset(24)
         }
+
         optionalLabel.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
             $0.leading.equalTo(titleLabel.snp.trailing).offset(3)
         }
+
         detailLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.leading.equalTo(imageView.snp.trailing).offset(24)
