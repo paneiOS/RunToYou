@@ -11,7 +11,12 @@ import RxSwift
 import RxCocoa
 
 final class AppAuthViewController: UIViewController {
-    let disposeBag = DisposeBag()
+
+    private let disposeBag = DisposeBag()
+    private let recordRowView = AuthViewRow()
+    private let alarmRowView = AuthViewRow()
+    private let cameraRowView = AuthViewRow()
+    private let locationRowView = AuthViewRow()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -20,31 +25,6 @@ final class AppAuthViewController: UIViewController {
         label.font = .customFont(.notoSans, family: .regular, size: 24)
         return label
     }()
-
-    private let recordRow = AuthViewRow(
-        imageName: "smart_phone",
-        titleString: "기기 및 앱 기록",
-        detailString: "서비스 개선 및 오류 확인",
-        isOptional: false
-    )
-
-    private let alarmRow = AuthViewRow(
-        imageName: "bell",
-        titleString: "알림",
-        detailString: "푸시 알림 및 메시지 수신 안내",
-        isOptional: true)
-
-    private let cameraRow = AuthViewRow(
-        imageName: "photo_camera",
-        titleString: "사진/카메라",
-        detailString: "채팅방 사진 업로드",
-        isOptional: true)
-
-    private let locationRow = AuthViewRow(
-        imageName: "location_on",
-        titleString: "위치",
-        detailString: "현재 위치 및 이동경로 GPS 기능",
-        isOptional: true)
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
@@ -68,6 +48,7 @@ final class AppAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAddTarget()
+        setupDatas()
         setupLayout()
     }
 
@@ -82,13 +63,35 @@ final class AppAuthViewController: UIViewController {
     private func goNextView() {
     }
 
+    private func setupDatas() {
+        recordRowView.setupDatas(
+            image: .smartPhone,
+            titleString: "기기 및 앱 기록",
+            detailString: "서비스 개선 및 오류 확인",
+            isOptional: false)
+        alarmRowView.setupDatas(
+            image: .bell,
+            titleString: "알림",
+            detailString: "푸시 알림 및 메시지 수신 안내",
+            isOptional: true)
+        cameraRowView.setupDatas(
+            image: .photoCamera,
+            titleString: "사진/카메라",
+            detailString: "채팅방 사진 업로드",
+            isOptional: true)
+        locationRowView.setupDatas(
+            image: .locationOn,
+            titleString: "위치",
+            detailString: "현재 위치 및 이동경로 GPS 기능",
+            isOptional: true)
+    }
     private func setupLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(titleLabel)
-        self.view.addSubview(recordRow)
-        self.view.addSubview(alarmRow)
-        self.view.addSubview(cameraRow)
-        self.view.addSubview(locationRow)
+        self.view.addSubview(recordRowView)
+        self.view.addSubview(alarmRowView)
+        self.view.addSubview(cameraRowView)
+        self.view.addSubview(locationRowView)
         self.view.addSubview(descriptionLabel)
         self.view.addSubview(nextButton)
 
@@ -97,28 +100,28 @@ final class AppAuthViewController: UIViewController {
             $0.top.equalToSuperview().inset(140)
         }
 
-        recordRow.snp.makeConstraints {
+        recordRowView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(60)
             $0.leading.trailing.equalToSuperview().inset(15)
         }
 
-        alarmRow.snp.makeConstraints {
-            $0.top.equalTo(recordRow.snp.bottom).offset(10)
+        alarmRowView.snp.makeConstraints {
+            $0.top.equalTo(recordRowView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(15)
         }
 
-        cameraRow.snp.makeConstraints {
-            $0.top.equalTo(alarmRow.snp.bottom).offset(10)
+        cameraRowView.snp.makeConstraints {
+            $0.top.equalTo(alarmRowView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(15)
         }
 
-        locationRow.snp.makeConstraints {
-            $0.top.equalTo(cameraRow.snp.bottom).offset(10)
+        locationRowView.snp.makeConstraints {
+            $0.top.equalTo(cameraRowView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(15)
         }
 
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(locationRow.snp.bottom).offset(60)
+            $0.top.equalTo(locationRowView.snp.bottom).offset(60)
             $0.width.equalToSuperview()
         }
 
@@ -135,41 +138,45 @@ final class AppAuthViewController: UIViewController {
     }
 }
 
-final private class AuthViewRow: UIView {
-    let imageView: UIImageView
-    let titleLabel: UILabel = {
+final class AuthViewRow: UIView {
+    private let imageView: UIImageView = UIImageView()
+    private let titleLabel: UILabel = {
        let label = UILabel()
         label.font = .customFont(.notoSans, family: .medium, size: 16)
         return label
     }()
-    let detailLabel: UILabel = {
+    private let detailLabel: UILabel = {
         let label = UILabel()
          label.font = .customFont(.notoSans, family: .regular, size: 14)
          return label
      }()
-    let optionalLabel: UILabel = {
+    private let optionalLabel: UILabel = {
         let label = UILabel()
          label.text = " (선택)"
         label.font = .customFont(.notoSans, family: .thin, size: 12)
          return label
      }()
 
-    init( imageName: String, titleString: String, detailString: String, isOptional: Bool) {
-        self.titleLabel.text = titleString
-        self.detailLabel.text = detailString
-        self.imageView = UIImageView(image: UIImage(named: imageName)!)
-        if !isOptional {
-            self.optionalLabel.isHidden = true
-        }
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupLayout()
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setupLayout()
     }
 
-    func setupLayout() {
+    func setupDatas(image: UIImage, titleString: String, detailString: String, isOptional: Bool) {
+        self.titleLabel.text = titleString
+        self.detailLabel.text = detailString
+        self.imageView.image = image
+        if !isOptional {
+            self.optionalLabel.isHidden = true
+        }
+    }
+
+    private func setupLayout() {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(optionalLabel)
