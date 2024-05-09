@@ -129,6 +129,7 @@ final class AppAuthViewController: UIViewController {
         }
 
     }
+
     deinit {
         print("\(type(of: self)): Deinited")
     }
