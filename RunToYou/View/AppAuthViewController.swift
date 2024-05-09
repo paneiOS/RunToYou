@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AppAuthViewController.swift
 //  RunToYou
 //
 //  Created by 이정환 on 4/22/24.
