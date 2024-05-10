@@ -51,7 +51,7 @@ final class AppAuthViewController: UIViewController {
         setupData()
         setupLayout()
     }
-    
+
     deinit {
         print("\(type(of: self)): Deinited")
     }
@@ -64,8 +64,8 @@ final class AppAuthViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+    // TODO: 로그인화면 이동
     private func goNextView() {
-
     }
 
     private func setupData() {
@@ -90,6 +90,7 @@ final class AppAuthViewController: UIViewController {
             detailString: "현재 위치 및 이동경로 GPS 기능",
             isOptional: true)
     }
+
     private func setupLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(titleLabel)
@@ -167,7 +168,7 @@ final class AuthViewRow: UIView {
         super.init(coder: coder)
         setupLayout()
     }
-    
+
     deinit {
         print("\(type(of: self)): Deinited")
     }
