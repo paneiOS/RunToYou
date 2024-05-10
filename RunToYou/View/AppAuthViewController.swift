@@ -13,10 +13,46 @@ import RxCocoa
 final class AppAuthViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
-    private let recordRowView = AuthViewRow()
-    private let alarmRowView = AuthViewRow()
-    private let cameraRowView = AuthViewRow()
-    private let locationRowView = AuthViewRow()
+
+    private let recordRowView: AuthViewRow = {
+        let view = AuthViewRow()
+        view.setupData(
+            image: .smartPhone,
+            titleString: "기기 및 앱 기록",
+            detailString: "서비스 개선 및 오류 확인",
+            isOptional: false)
+        return view
+    }()
+
+    private let alarmRowView: AuthViewRow = {
+        let view = AuthViewRow()
+        view.setupData(
+            image: .bell,
+            titleString: "알림",
+            detailString: "푸시 알림 및 메시지 수신 안내",
+            isOptional: true)
+        return view
+    }()
+
+    private let cameraRowView: AuthViewRow = {
+        let view = AuthViewRow()
+        view.setupData(
+            image: .photoCamera,
+            titleString: "사진/카메라",
+            detailString: "채팅방 사진 업로드",
+            isOptional: true)
+        return view
+    }()
+
+    private let locationRowView: AuthViewRow = {
+        let view = AuthViewRow()
+        view.setupData(
+            image: .locationOn,
+            titleString: "위치",
+            detailString: "현재 위치 및 이동경로 GPS 기능",
+            isOptional: true)
+        return view
+    }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -38,7 +74,7 @@ final class AppAuthViewController: UIViewController {
     private let nextButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("다음", for: .normal)
-        btn.backgroundColor = UIColor.customColor(.mainDark)
+        btn.backgroundColor = .customColor(.mainDark)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = .customFont(.notoSans, family: .regular, size: 18)
         btn.layer.cornerRadius = 7
@@ -48,7 +84,6 @@ final class AppAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTarget()
-        setupData()
         setupLayout()
     }
 
@@ -67,29 +102,6 @@ final class AppAuthViewController: UIViewController {
 
     // TODO: 로그인화면 이동
     private func goNextView() {
-    }
-
-    private func setupData() {
-        recordRowView.setupData(
-            image: .smartPhone,
-            titleString: "기기 및 앱 기록",
-            detailString: "서비스 개선 및 오류 확인",
-            isOptional: false)
-        alarmRowView.setupData(
-            image: .bell,
-            titleString: "알림",
-            detailString: "푸시 알림 및 메시지 수신 안내",
-            isOptional: true)
-        cameraRowView.setupData(
-            image: .photoCamera,
-            titleString: "사진/카메라",
-            detailString: "채팅방 사진 업로드",
-            isOptional: true)
-        locationRowView.setupData(
-            image: .locationOn,
-            titleString: "위치",
-            detailString: "현재 위치 및 이동경로 GPS 기능",
-            isOptional: true)
     }
 
     private func setupLayout() {
