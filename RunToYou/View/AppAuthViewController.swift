@@ -59,7 +59,8 @@ final class AppAuthViewController: UIViewController {
     private func setupTarget() {
         nextButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.goNextView()
+                guard let self = self else { return }
+                self.goNextView()
             })
             .disposed(by: disposeBag)
     }
