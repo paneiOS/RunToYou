@@ -47,12 +47,12 @@ final class AppAuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setAddTarget()
-        setupDatas()
+        setupTarget()
+        setupData()
         setupLayout()
     }
 
-    private func setAddTarget() {
+    private func setupTarget() {
         nextButton.rx.tap
             .subscribe(onNext: { [weak self] in
                 self?.goNextView()
@@ -61,25 +61,26 @@ final class AppAuthViewController: UIViewController {
     }
 
     private func goNextView() {
+
     }
 
-    private func setupDatas() {
-        recordRowView.setupDatas(
+    private func setupData() {
+        recordRowView.setupData(
             image: .smartPhone,
             titleString: "기기 및 앱 기록",
             detailString: "서비스 개선 및 오류 확인",
             isOptional: false)
-        alarmRowView.setupDatas(
+        alarmRowView.setupData(
             image: .bell,
             titleString: "알림",
             detailString: "푸시 알림 및 메시지 수신 안내",
             isOptional: true)
-        cameraRowView.setupDatas(
+        cameraRowView.setupData(
             image: .photoCamera,
             titleString: "사진/카메라",
             detailString: "채팅방 사진 업로드",
             isOptional: true)
-        locationRowView.setupDatas(
+        locationRowView.setupData(
             image: .locationOn,
             titleString: "위치",
             detailString: "현재 위치 및 이동경로 GPS 기능",
@@ -167,7 +168,7 @@ final class AuthViewRow: UIView {
         setupLayout()
     }
 
-    func setupDatas(image: UIImage, titleString: String, detailString: String, isOptional: Bool) {
+    func setupData(image: UIImage, titleString: String, detailString: String, isOptional: Bool) {
         self.titleLabel.text = titleString
         self.detailLabel.text = detailString
         self.imageView.image = image
