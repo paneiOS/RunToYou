@@ -172,9 +172,7 @@ final class AuthViewRow: UIView {
         self.titleLabel.text = titleString
         self.detailLabel.text = detailString
         self.imageView.image = image
-        if !isOptional {
-            self.optionalLabel.isHidden = true
-        }
+        if !isOptional { self.optionalLabel.isHidden = true }
     }
 
     private func setupLayout() {
