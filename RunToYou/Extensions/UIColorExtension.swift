@@ -18,11 +18,11 @@ extension UIColor {
     static func customColor(_ color: CustomColor) -> UIColor {
         switch color {
         case .mainDark:
-            return UIColor(red: 34, green: 34, blue: 34, alpha: 1)
+            return UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 1)
         case .mainBlue:
-            return UIColor(red: 66, green: 133, blue: 244, alpha: 1)
+            return UIColor(red: 66/255, green: 133/255, blue: 244/255, alpha: 1)
         case .mainRed:
-            return UIColor(red: 242, green: 118, blue: 79, alpha: 1)
+            return UIColor(red: 242/255, green: 118/255, blue: 79/255, alpha: 1)
         }
     }
 }
