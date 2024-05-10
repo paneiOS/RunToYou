@@ -51,6 +51,10 @@ final class AppAuthViewController: UIViewController {
         setupData()
         setupLayout()
     }
+    
+    deinit {
+        print("\(type(of: self)): Deinited")
+    }
 
     private func setupTarget() {
         nextButton.rx.tap
@@ -133,10 +137,6 @@ final class AppAuthViewController: UIViewController {
         }
 
     }
-
-    deinit {
-        print("\(type(of: self)): Deinited")
-    }
 }
 
 final class AuthViewRow: UIView {
@@ -166,6 +166,10 @@ final class AuthViewRow: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupLayout()
+    }
+    
+    deinit {
+        print("\(type(of: self)): Deinited")
     }
 
     func setupData(image: UIImage, titleString: String, detailString: String, isOptional: Bool) {
