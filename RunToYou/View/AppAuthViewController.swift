@@ -14,8 +14,8 @@ final class AppAuthViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
-    private let recordRowView: AuthViewRow = {
-        let view = AuthViewRow()
+    private let recordRowView: AuthRowView = {
+        let view = AuthRowView()
         view.setupData(
             image: .smartPhone,
             titleString: "기기 및 앱 기록",
@@ -24,33 +24,30 @@ final class AppAuthViewController: UIViewController {
         return view
     }()
 
-    private let alarmRowView: AuthViewRow = {
-        let view = AuthViewRow()
+    private let alarmRowView: AuthRowView = {
+        let view = AuthRowView()
         view.setupData(
             image: .bell,
             titleString: "알림",
-            detailString: "푸시 알림 및 메시지 수신 안내",
-            isOptional: true)
+            detailString: "푸시 알림 및 메시지 수신 안내")
         return view
     }()
 
-    private let cameraRowView: AuthViewRow = {
-        let view = AuthViewRow()
+    private let cameraRowView: AuthRowView = {
+        let view = AuthRowView()
         view.setupData(
             image: .photoCamera,
             titleString: "사진/카메라",
-            detailString: "채팅방 사진 업로드",
-            isOptional: true)
+            detailString: "채팅방 사진 업로드")
         return view
     }()
 
-    private let locationRowView: AuthViewRow = {
-        let view = AuthViewRow()
+    private let locationRowView: AuthRowView = {
+        let view = AuthRowView()
         view.setupData(
             image: .locationOn,
             titleString: "위치",
-            detailString: "현재 위치 및 이동경로 GPS 기능",
-            isOptional: true)
+            detailString: "현재 위치 및 이동경로 GPS 기능")
         return view
     }()
 
@@ -153,7 +150,7 @@ final class AppAuthViewController: UIViewController {
     }
 }
 
-final class AuthViewRow: UIView {
+final class AuthRowView: UIView {
     private let imageView: UIImageView = UIImageView()
     private let titleLabel: UILabel = {
        let label = UILabel()
@@ -186,7 +183,7 @@ final class AuthViewRow: UIView {
         print("\(type(of: self)): Deinited")
     }
 
-    func setupData(image: UIImage, titleString: String, detailString: String, isOptional: Bool) {
+    func setupData(image: UIImage, titleString: String, detailString: String, isOptional: Bool = true) {
         self.titleLabel.text = titleString
         self.detailLabel.text = detailString
         self.imageView.image = image
