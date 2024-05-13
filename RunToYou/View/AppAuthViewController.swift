@@ -9,8 +9,9 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import ReactorKit
 
-final class AppAuthViewController: UIViewController {
+final class AppAuthViewController: UIViewController, View {
 
     private let recordRowView: AuthRowView = {
         let view = AuthRowView()
@@ -76,11 +77,12 @@ final class AppAuthViewController: UIViewController {
         return btn
     }()
 
-    private let disposeBag = DisposeBag()
+    typealias Reactor = AuthViewReactor
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTarget()
+        self.reactor = AuthViewReactor()
         setupLayout()
     }
 
@@ -88,17 +90,24 @@ final class AppAuthViewController: UIViewController {
         print("\(type(of: self)): Deinited")
     }
 
-    private func setupTarget() {
+    func bind(reactor: AuthViewReactor) {
+        // Action
         nextButton.rx.tap
-            .subscribe(onNext: { [weak self] in
+            .map { Reactor.Action.pushNextButton }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        // State
+        reactor.state.map { $0.goNextPage }
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] isPresent in
                 guard let self = self else { return }
-                self.goNextView()
+                self.goNextView(isPresent: isPresent)
             })
             .disposed(by: disposeBag)
     }
 
     // TODO: 로그인화면 이동
-    private func goNextView() {
+    private func goNextView(isPresent: Bool) {
     }
 
     private func setupLayout() {
@@ -220,4 +229,54 @@ final class AuthRowView: UIView {
             $0.leading.equalTo(imageView.snp.trailing).offset(24)
         }
     }
+}
+
+final class AuthViewReactor: Reactor {
+    enum Action {
+        case pushNextButton
+    }
+
+    enum Mutation {
+        case alarmAuthResult(Bool, Error?)
+        case goNextPage
+    }
+
+    struct State {
+        var authorizationResult: (Bool, Error?)?
+        var goNextPage: Bool = false
+    }
+
+    let initialState: State = State()
+
+    deinit {
+        print("\(type(of: self)): Deinited")
+    }
+
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .pushNextButton:
+            // TODO: 카메라/사진 권한
+            // TODO: 위치 정보 권한
+            return Observable.concat([ Observable.create { observer in
+                UNUserNotificationCenter.current().requestAuthorization(
+                    options: [.alert, .sound, .badge]) { granted, error in
+                    observer.onNext(Mutation.alarmAuthResult(granted, error))
+                    observer.onCompleted()
+                }
+                return Disposables.create()
+            }, Observable.just(Mutation.goNextPage)])
+        }
+    }
+
+    func reduce(state: State, mutation: Mutation) -> State {
+        var newState = state
+        switch mutation {
+        case let .alarmAuthResult(result, error):
+            newState.authorizationResult = (result, error)
+        case .goNextPage:
+            newState.goNextPage = true
+        }
+        return newState
+    }
+
 }
