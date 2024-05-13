@@ -12,8 +12,6 @@ import RxCocoa
 
 final class AppAuthViewController: UIViewController {
 
-    private let disposeBag = DisposeBag()
-
     private let recordRowView: AuthRowView = {
         let view = AuthRowView()
         view.setupData(
@@ -77,6 +75,8 @@ final class AppAuthViewController: UIViewController {
         btn.layer.cornerRadius = 7
         return btn
     }()
+
+    private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
