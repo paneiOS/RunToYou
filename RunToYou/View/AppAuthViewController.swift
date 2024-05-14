@@ -10,6 +10,8 @@ import SnapKit
 import RxSwift
 import RxCocoa
 import ReactorKit
+import AVFoundation
+import Photos
 
 final class AppAuthViewController: UIViewController, View {
 
@@ -238,11 +240,15 @@ final class AuthViewReactor: Reactor {
 
     enum Mutation {
         case alarmAuthResult(Bool, Error?)
+        case cameraAuthResult(Bool)
+        case albumAuthResult(PHAuthorizationStatus)
         case goNextPage
     }
 
     struct State {
         var authorizationResult: (Bool, Error?)?
+        var cameraAuthResult: Bool = false
+        var albumAuthResult: PHAuthorizationStatus?
         var goNextPage: Bool = false
     }
 
@@ -255,7 +261,6 @@ final class AuthViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .pushNextButton:
-            // TODO: 카메라/사진 권한
             // TODO: 위치 정보 권한
             return Observable.concat([ Observable.create { observer in
                 UNUserNotificationCenter.current().requestAuthorization(
@@ -264,7 +269,21 @@ final class AuthViewReactor: Reactor {
                     observer.onCompleted()
                 }
                 return Disposables.create()
-            }, Observable.just(Mutation.goNextPage)])
+            }, Observable.create { observer in
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    observer.onNext(Mutation.cameraAuthResult(granted))
+                    observer.onCompleted()
+                }
+                return Disposables.create()
+            }, Observable.create { observer in
+                PHPhotoLibrary.requestAuthorization { status in
+                    observer.onNext(Mutation.albumAuthResult(status))
+                    observer.onCompleted()
+                }
+                return Disposables.create()
+            },
+                                       
+                                       Observable.just(Mutation.goNextPage)])
         }
     }
 
@@ -273,8 +292,16 @@ final class AuthViewReactor: Reactor {
         switch mutation {
         case let .alarmAuthResult(result, error):
             newState.authorizationResult = (result, error)
+            print("1")
+        case .cameraAuthResult(let granted):
+            newState.cameraAuthResult = granted
+            print("2")
+        case .albumAuthResult(let status):
+            newState.albumAuthResult = status
+            print("3")
         case .goNextPage:
             newState.goNextPage = true
+            print("4")
         }
         return newState
     }
