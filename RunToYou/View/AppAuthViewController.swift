@@ -12,6 +12,7 @@ import RxCocoa
 import ReactorKit
 import AVFoundation
 import Photos
+import CoreLocation
 
 final class AppAuthViewController: UIViewController, View {
 
@@ -234,6 +235,7 @@ final class AuthRowView: UIView {
 }
 
 final class AuthViewReactor: Reactor {
+
     enum Action {
         case pushNextButton
     }
@@ -253,6 +255,7 @@ final class AuthViewReactor: Reactor {
     }
 
     let initialState: State = State()
+    let locationManager = CLLocationManager()
 
     deinit {
         print("\(type(of: self)): Deinited")
@@ -261,29 +264,31 @@ final class AuthViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .pushNextButton:
-            // TODO: 위치 정보 권한
-            return Observable.concat([ Observable.create { observer in
-                UNUserNotificationCenter.current().requestAuthorization(
-                    options: [.alert, .sound, .badge]) { granted, error in
-                    observer.onNext(Mutation.alarmAuthResult(granted, error))
+            return Observable.concat([
+                Observable.create { observer in
+                    UNUserNotificationCenter.current().requestAuthorization(
+                        options: [.alert, .sound, .badge]) { granted, error in
+                            observer.onNext(Mutation.alarmAuthResult(granted, error))
+                            observer.onCompleted()
+                        }
+                    return Disposables.create()
+                }, Observable.create { observer in
+                    AVCaptureDevice.requestAccess(for: .video) { granted in
+                        observer.onNext(Mutation.cameraAuthResult(granted))
+                        observer.onCompleted()
+                    }
+                    return Disposables.create()
+                }, Observable.create { observer in
+                    PHPhotoLibrary.requestAuthorization { status in
+                        observer.onNext(Mutation.albumAuthResult(status))
+                        observer.onCompleted()
+                    }
+                    return Disposables.create()
+                }, Observable.create { observer in
+                    self.locationManager.requestWhenInUseAuthorization()
                     observer.onCompleted()
-                }
-                return Disposables.create()
-            }, Observable.create { observer in
-                AVCaptureDevice.requestAccess(for: .video) { granted in
-                    observer.onNext(Mutation.cameraAuthResult(granted))
-                    observer.onCompleted()
-                }
-                return Disposables.create()
-            }, Observable.create { observer in
-                PHPhotoLibrary.requestAuthorization { status in
-                    observer.onNext(Mutation.albumAuthResult(status))
-                    observer.onCompleted()
-                }
-                return Disposables.create()
-            },
-                                       
-                                       Observable.just(Mutation.goNextPage)])
+                    return Disposables.create()
+                }, Observable.just(Mutation.goNextPage)])
         }
     }
 
@@ -292,16 +297,12 @@ final class AuthViewReactor: Reactor {
         switch mutation {
         case let .alarmAuthResult(result, error):
             newState.authorizationResult = (result, error)
-            print("1")
         case .cameraAuthResult(let granted):
             newState.cameraAuthResult = granted
-            print("2")
         case .albumAuthResult(let status):
             newState.albumAuthResult = status
-            print("3")
         case .goNextPage:
             newState.goNextPage = true
-            print("4")
         }
         return newState
     }
