@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIColor {
-
     enum CustomColor {
         case mainDark
         case mainBlue

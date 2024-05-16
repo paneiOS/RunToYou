@@ -64,7 +64,7 @@ final class AppAuthViewController: UIViewController, View {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 2
-        label.text = "* 권한을 허용하지 않아도 앱 이용이 가능하지만 \n 일부 서비스가 제한될 수 있습니다"
+        label.text = "* 권한을 허용하지 않아도 앱 이용이 가능하지만\n일부 서비스가 제한될 수 있습니다"
         label.font = .customFont(.notoSans, family: .regular, size: 14)
         label.textAlignment = .center
         return label
@@ -76,7 +76,7 @@ final class AppAuthViewController: UIViewController, View {
         btn.backgroundColor = .customColor(.mainDark)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = .customFont(.notoSans, family: .regular, size: 18)
-        btn.layer.cornerRadius = 7
+        btn.layer.cornerRadius = 8
         return btn
     }()
 
