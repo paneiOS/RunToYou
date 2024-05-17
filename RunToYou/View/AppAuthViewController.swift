@@ -15,7 +15,6 @@ import Photos
 import CoreLocation
 
 final class AppAuthViewController: UIViewController, View {
-
     private let recordRowView: AuthRowView = {
         let view = AuthRowView()
         view.setupData(
@@ -176,7 +175,7 @@ final class AuthRowView: UIView {
      }()
     private let optionalLabel: UILabel = {
         let label = UILabel()
-         label.text = " (선택)"
+         label.text = "(선택)"
         label.font = .customFont(.notoSans, family: .thin, size: 12)
          return label
      }()
@@ -224,7 +223,7 @@ final class AuthRowView: UIView {
 
         optionalLabel.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
-            $0.leading.equalTo(titleLabel.snp.trailing).offset(3)
+            $0.leading.equalTo(titleLabel.snp.trailing).offset(5)
         }
 
         detailLabel.snp.makeConstraints {
@@ -235,7 +234,6 @@ final class AuthRowView: UIView {
 }
 
 final class AuthViewReactor: Reactor {
-
     enum Action {
         case pushNextButton
     }
@@ -306,5 +304,4 @@ final class AuthViewReactor: Reactor {
         }
         return newState
     }
-
 }
