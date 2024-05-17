@@ -122,7 +122,7 @@ final class AppAuthViewController: UIViewController, View {
 
         titleLabel.snp.makeConstraints {
             $0.width.equalToSuperview()
-            $0.top.equalToSuperview().inset(140)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(140)
         }
 
         recordRowView.snp.makeConstraints {
