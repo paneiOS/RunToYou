@@ -7,12 +7,9 @@
 
 import UIKit
 import SnapKit
+import ReactorKit
 import RxSwift
 import RxCocoa
-import ReactorKit
-import AVFoundation
-import Photos
-import CoreLocation
 
 final class AppAuthViewController: UIViewController, View {
     private let recordRowView: AuthRowView = {
@@ -79,12 +76,12 @@ final class AppAuthViewController: UIViewController, View {
         return btn
     }()
 
-    typealias Reactor = AuthViewReactor
+    typealias Reactor = AppAuthViewReactor
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.reactor = AuthViewReactor()
+        self.reactor = AppAuthViewReactor()
         setupLayout()
     }
 
@@ -92,24 +89,25 @@ final class AppAuthViewController: UIViewController, View {
         print("\(type(of: self)): Deinited")
     }
 
-    func bind(reactor: AuthViewReactor) {
+    func bind(reactor: AppAuthViewReactor) {
         // Action
         nextButton.rx.tap
-            .map { Reactor.Action.pushNextButton }
+            .map { Reactor.Action.takeAuthority }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         // State
         reactor.state.map { $0.goNextPage }
-            .distinctUntilChanged()
-            .subscribe(onNext: { [weak self] isPresent in
+            .filter { $0 == true }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.goNextView(isPresent: isPresent)
+                self.goNextView()
             })
             .disposed(by: disposeBag)
     }
 
     // TODO: 로그인화면 이동
-    private func goNextView(isPresent: Bool) {
+    private func goNextView() {
     }
 
     private func setupLayout() {
@@ -230,78 +228,5 @@ final class AuthRowView: UIView {
             $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.leading.equalTo(imageView.snp.trailing).offset(24)
         }
-    }
-}
-
-final class AuthViewReactor: Reactor {
-    enum Action {
-        case pushNextButton
-    }
-
-    enum Mutation {
-        case alarmAuthResult(Bool, Error?)
-        case cameraAuthResult(Bool)
-        case albumAuthResult(PHAuthorizationStatus)
-        case goNextPage
-    }
-
-    struct State {
-        var authorizationResult: (Bool, Error?)?
-        var cameraAuthResult: Bool = false
-        var albumAuthResult: PHAuthorizationStatus?
-        var goNextPage: Bool = false
-    }
-
-    let initialState: State = State()
-    let locationManager = CLLocationManager()
-
-    deinit {
-        print("\(type(of: self)): Deinited")
-    }
-
-    func mutate(action: Action) -> Observable<Mutation> {
-        switch action {
-        case .pushNextButton:
-            return Observable.concat([
-                Observable.create { observer in
-                    UNUserNotificationCenter.current().requestAuthorization(
-                        options: [.alert, .sound, .badge]) { granted, error in
-                            observer.onNext(Mutation.alarmAuthResult(granted, error))
-                            observer.onCompleted()
-                        }
-                    return Disposables.create()
-                }, Observable.create { observer in
-                    AVCaptureDevice.requestAccess(for: .video) { granted in
-                        observer.onNext(Mutation.cameraAuthResult(granted))
-                        observer.onCompleted()
-                    }
-                    return Disposables.create()
-                }, Observable.create { observer in
-                    PHPhotoLibrary.requestAuthorization { status in
-                        observer.onNext(Mutation.albumAuthResult(status))
-                        observer.onCompleted()
-                    }
-                    return Disposables.create()
-                }, Observable.create { observer in
-                    self.locationManager.requestWhenInUseAuthorization()
-                    observer.onCompleted()
-                    return Disposables.create()
-                }, Observable.just(Mutation.goNextPage)])
-        }
-    }
-
-    func reduce(state: State, mutation: Mutation) -> State {
-        var newState = state
-        switch mutation {
-        case let .alarmAuthResult(result, error):
-            newState.authorizationResult = (result, error)
-        case .cameraAuthResult(let granted):
-            newState.cameraAuthResult = granted
-        case .albumAuthResult(let status):
-            newState.albumAuthResult = status
-        case .goNextPage:
-            newState.goNextPage = true
-        }
-        return newState
     }
 }
