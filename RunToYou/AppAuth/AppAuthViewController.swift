@@ -97,7 +97,7 @@ final class AppAuthViewController: UIViewController, View {
             .disposed(by: disposeBag)
         // State
         reactor.state.map { $0.goNextPage }
-            .filter { $0 == true }
+            .filter { $0 }
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
