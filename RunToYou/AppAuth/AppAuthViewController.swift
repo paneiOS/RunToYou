@@ -105,6 +105,7 @@ final class AppAuthViewController: UIViewController, View {
     private func goNextView() {
         let nextVC = LoginViewController()
         nextVC.modalPresentationStyle = .fullScreen
+        nextVC.reactor = LoginViewReactor()
         present(nextVC, animated: false)
     }
 

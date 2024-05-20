@@ -7,12 +7,14 @@
 
 import UIKit
 import RxKakaoSDKAuth
+import RxKakaoSDKCommon
 import KakaoSDKAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        RxKakaoSDK.initSDK(appKey: "625a045f6d46a73f5449c3345256774d")
         return true
     }
 
@@ -24,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 
     // MARK: For Kakao API
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [: ]) -> Bool {
+        if AuthApi.isKakaoTalkLoginUrl(url) {
             return AuthController.rx.handleOpenUrl(url: url)
         }
         return false

@@ -7,8 +7,14 @@
 
 import UIKit
 import ReactorKit
+import RxKakaoSDKUser
+import RxKakaoSDKAuth
+import RxKakaoSDKCommon
+import KakaoSDKCommon
+import KakaoSDKUser
+import KakaoSDKAuth
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, View {
     private let backgroundImage: UIImageView = {
         let image = UIImageView()
         image.image = .luanchScreen
@@ -65,7 +71,7 @@ final class LoginViewController: UIViewController {
         return btn
     }()
 
-    typealias Reactor = AppAuthViewReactor
+    typealias Reactor = LoginViewReactor
     var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -77,6 +83,30 @@ final class LoginViewController: UIViewController {
         print("\(type(of: self)): Deinited")
     }
 
+    func bind(reactor: LoginViewReactor) {
+        // TODO: 구글 로그인
+        // TODO: 네이버 로그인
+        // TODO: 애플 로그인
+        // Action
+        kakaoButton.rx.tap
+        .map { Reactor.Action.kakaoLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
+        // State
+        reactor.state.map { $0.goNextPage }
+            .filter { $0 }
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                goNextView()
+            })
+            .disposed(by: disposeBag)
+    }
+    // TODO: 약관 동의 화면으로 이동
+    private func goNextView() {
+        print("true")
+    }
+
     private func setupLayout() {
         self.view.backgroundColor = .white
         self.view.addSubview(backgroundImage)
@@ -86,11 +116,17 @@ final class LoginViewController: UIViewController {
         self.view.addSubview(naverButton)
         self.view.addSubview(appleButton)
 
-        backgroundImage.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
+        backgroundImage.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+        }
+
+        runToYouImage.snp.makeConstraints {
+            $0.width.equalTo(248)
+            $0.height.equalTo(95)
+            $0.center.equalToSuperview()
         }
 
         googleButton.snp.makeConstraints {
