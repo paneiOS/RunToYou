@@ -66,13 +66,9 @@ final class AppAuthViewController: UIViewController, View {
         return label
     }()
 
-    private let nextButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("다음", for: .normal)
-        btn.backgroundColor = .customColor(.mainDark)
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = .customFont(.notoSans, family: .regular, size: 18)
-        btn.layer.cornerRadius = 8
+    private let nextButton: CommonButton = {
+        let btn = CommonButton()
+        btn.setupData("다음")
         return btn
     }()
 
@@ -109,7 +105,7 @@ final class AppAuthViewController: UIViewController, View {
     private func goNextView() {
         let nextVC = LoginViewController()
         nextVC.modalPresentationStyle = .fullScreen
-        present(nextVC, animated: true)
+        present(nextVC, animated: false)
     }
 
     private func setupLayout() {

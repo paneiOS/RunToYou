@@ -28,6 +28,7 @@
 		6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */; };
 		6CD6CE132BFAE8470090D084 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE122BFAE8470090D084 /* LoginViewController.swift */; };
 		6CD6CE152BFAE8780090D084 /* LoginViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE142BFAE8780090D084 /* LoginViewReactor.swift */; };
+		6CD6CE182BFAFEA40090D084 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE172BFAFEA40090D084 /* CommonButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewReactor.swift; sourceTree = "<group>"; };
 		6CD6CE122BFAE8470090D084 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6CD6CE142BFAE8780090D084 /* LoginViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewReactor.swift; sourceTree = "<group>"; };
+		6CD6CE172BFAFEA40090D084 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				39E6F0F02BD68BAC00C8D4C9 /* Info.plist */,
 				6C7D743B2BEB2A490099CD15 /* Resource */,
 				6C7D743D2BEB2BE30099CD15 /* Extensions */,
+				6CD6CE162BFAFE7F0090D084 /* CommonView */,
 				6C7D743C2BEB2B630099CD15 /* AppAuth */,
 				6CD6CE112BFAE7A30090D084 /* Login */,
 			);
@@ -145,6 +148,14 @@
 				6CD6CE142BFAE8780090D084 /* LoginViewReactor.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		6CD6CE162BFAFE7F0090D084 /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				6CD6CE172BFAFEA40090D084 /* CommonButton.swift */,
+			);
+			path = CommonView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6CD6CE132BFAE8470090D084 /* LoginViewController.swift in Sources */,
+				6CD6CE182BFAFEA40090D084 /* CommonButton.swift in Sources */,
 				39E6F0E72BD68BAB00C8D4C9 /* AppAuthViewController.swift in Sources */,
 				6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */,
 				39E6F0E32BD68BAB00C8D4C9 /* AppDelegate.swift in Sources */,
