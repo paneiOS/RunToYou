@@ -106,8 +106,10 @@ final class AppAuthViewController: UIViewController, View {
             .disposed(by: disposeBag)
     }
 
-    // TODO: 로그인화면 이동
     private func goNextView() {
+        let nextVC = LoginViewController()
+        nextVC.modalPresentationStyle = .fullScreen
+        present(nextVC, animated: true)
     }
 
     private func setupLayout() {
