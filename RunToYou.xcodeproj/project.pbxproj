@@ -17,6 +17,7 @@
 		39E6F0FB2BD68C3500C8D4C9 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F0FA2BD68C3500C8D4C9 /* Moya */; };
 		39E6F10E2BD68FFF00C8D4C9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10D2BD68FFF00C8D4C9 /* RxCocoa */; };
 		39E6F1102BD68FFF00C8D4C9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10F2BD68FFF00C8D4C9 /* RxSwift */; };
+		6C4D8B032BFCA0D800E1D1AC /* NaverThirdPartyLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 6C4D8B022BFCA0D800E1D1AC /* NaverThirdPartyLogin */; };
 		6C7D74362BEB2A2E0099CD15 /* NotoSansKR-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74312BEB2A2E0099CD15 /* NotoSansKR-VariableFont_wght.ttf */; };
 		6C7D74372BEB2A2E0099CD15 /* NotoSansKR-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74322BEB2A2E0099CD15 /* NotoSansKR-Medium.ttf */; };
 		6C7D74382BEB2A2E0099CD15 /* NotoSansKR-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74332BEB2A2E0099CD15 /* NotoSansKR-Regular.ttf */; };
@@ -96,6 +97,7 @@
 				6CD6CE382BFB2CCA0090D084 /* KakaoSDKFriendCore in Frameworks */,
 				6CD6CE362BFB2CCA0090D084 /* KakaoSDKFriend in Frameworks */,
 				6CD6CE252BFB1D1B0090D084 /* RxKakaoSDKShare in Frameworks */,
+				6C4D8B032BFCA0D800E1D1AC /* NaverThirdPartyLogin in Frameworks */,
 				6CD6CE212BFB1D1B0090D084 /* RxKakaoSDKCommon in Frameworks */,
 				39E6F1102BD68FFF00C8D4C9 /* RxSwift in Frameworks */,
 				6C7D74482BF1E5DC0099CD15 /* ReactorKit in Frameworks */,
@@ -247,6 +249,7 @@
 				6CD6CE412BFB2CCA0090D084 /* KakaoSDKUser */,
 				6CD6CE442BFB3FA10090D084 /* GoogleSignIn */,
 				6CD6CE462BFB3FA10090D084 /* GoogleSignInSwift */,
+				6C4D8B022BFCA0D800E1D1AC /* NaverThirdPartyLogin */,
 			);
 			productName = RunToYou;
 			productReference = 39E6F0DF2BD68BAB00C8D4C9 /* RunToYou.app */;
@@ -284,6 +287,7 @@
 				6CD6CE192BFB1D1B0090D084 /* XCRemoteSwiftPackageReference "kakao-ios-sdk-rx" */,
 				6CD6CE2A2BFB2CCA0090D084 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				6CD6CE432BFB3FA10090D084 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				6C4D8B012BFCA0D800E1D1AC /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */,
 			);
 			productRefGroup = 39E6F0E02BD68BAB00C8D4C9 /* Products */;
 			projectDirPath = "";
@@ -598,6 +602,14 @@
 				minimumVersion = 6.7.0;
 			};
 		};
+		6C4D8B012BFCA0D800E1D1AC /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/naver/naveridlogin-sdk-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		6C7D74462BF1E5DC0099CD15 /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
@@ -652,6 +664,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 39E6F10C2BD68FFF00C8D4C9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		6C4D8B022BFCA0D800E1D1AC /* NaverThirdPartyLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6C4D8B012BFCA0D800E1D1AC /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios" */;
+			productName = NaverThirdPartyLogin;
 		};
 		6C7D74472BF1E5DC0099CD15 /* ReactorKit */ = {
 			isa = XCSwiftPackageProductDependency;
