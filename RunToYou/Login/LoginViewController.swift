@@ -84,7 +84,11 @@ final class LoginViewController: UIViewController, View {
     }
 
     func bind(reactor: LoginViewReactor) {
-        // TODO: 구글 로그인
+        reactor.vcDelegate = self
+        googleButton.rx.tap
+        .map { Reactor.Action.googleLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
         // TODO: 네이버 로그인
         // TODO: 애플 로그인
         // Action
@@ -104,7 +108,6 @@ final class LoginViewController: UIViewController, View {
     }
     // TODO: 약관 동의 화면으로 이동
     private func goNextView() {
-        print("true")
     }
 
     private func setupLayout() {
