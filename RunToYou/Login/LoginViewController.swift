@@ -13,6 +13,7 @@ import RxKakaoSDKCommon
 import KakaoSDKCommon
 import KakaoSDKUser
 import KakaoSDKAuth
+import Alamofire
 
 final class LoginViewController: UIViewController, View {
     private let backgroundImage: UIImageView = {
@@ -85,17 +86,22 @@ final class LoginViewController: UIViewController, View {
 
     func bind(reactor: LoginViewReactor) {
         reactor.vcDelegate = self
+        // Action
         googleButton.rx.tap
         .map { Reactor.Action.googleLogin}
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
-        // TODO: 네이버 로그인
-        // TODO: 애플 로그인
-        // Action
+
         kakaoButton.rx.tap
         .map { Reactor.Action.kakaoLogin}
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
+
+        naverButton.rx.tap
+        .map { Reactor.Action.naverLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
+        // TODO: 애플 로그인
         // State
         reactor.state.map { $0.goNextPage }
             .filter { $0 }
@@ -108,6 +114,7 @@ final class LoginViewController: UIViewController, View {
     }
     // TODO: 약관 동의 화면으로 이동
     private func goNextView() {
+        print("다음화면으로 이동함 ")
     }
 
     private func setupLayout() {

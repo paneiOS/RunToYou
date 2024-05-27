@@ -2,8 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>GIDClientID</key>
-	<string>14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1.apps.googleusercontent.com</string>
+    <key>GIDClientID</key>
+    <string>14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,9 +30,21 @@
 				<string>com.googleusercontent.apps.14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>naver</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>runtoyou</string>
+			</array>
+		</dict>
 	</array>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>naversearchthirdlogin</string>
+		<string>naversearchapp</string>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 	</array>

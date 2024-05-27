@@ -12,24 +12,35 @@ import RxKakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKUser
 import GoogleSignIn
+import NaverThirdPartyLogin
+import Alamofire
 
-final class LoginViewReactor: Reactor {
+final class LoginViewReactor: NSObject, Reactor {
     enum Action {
         case googleLogin
         case kakaoLogin
+        case naverLogin
     }
 
     enum Mutation {
         case setGoogleLoginResult
         case setKaKaoLoginResult
+        case setNaverLoginResult
     }
 
     struct State {
         var goNextPage: Bool = false
     }
 
+    override init() {
+        super.init()
+        naverLoginInstance!.delegate = self
+    }
+
     let initialState: State = State()
     weak var vcDelegate: UIViewController?
+    let naverLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
+    let naverLoginResultSubject = PublishSubject<Mutation>()
 
     deinit {
         print("\(type(of: self)): Deinited")
@@ -41,6 +52,12 @@ final class LoginViewReactor: Reactor {
             return requestGoogleLogin()
         case .kakaoLogin:
             return requestKakaoLogin()
+        case .naverLogin:
+            return Observable.create { observer in
+                self.naverLoginInstance?.requestThirdPartyLogin()
+                observer.onCompleted()
+                return Disposables.create()
+            }
         }
     }
 
@@ -51,8 +68,14 @@ final class LoginViewReactor: Reactor {
             newState.goNextPage = true
         case .setKaKaoLoginResult:
             newState.goNextPage = true
+        case .setNaverLoginResult:
+            newState.goNextPage = true
         }
         return newState
+    }
+
+    func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+        return Observable.merge(mutation, naverLoginResultSubject.asObservable())
     }
 
     private func requestGoogleLogin() -> Observable<Mutation> {
@@ -60,7 +83,7 @@ final class LoginViewReactor: Reactor {
             guard let vcDelegate = self.vcDelegate else { return Disposables.create() }
             GIDSignIn.sharedInstance.signIn(
                 withPresenting: vcDelegate) { signInResult, _ in
-                    guard let result = signInResult else { return }
+                    guard signInResult != nil else { return }
                     observer.onNext(.setGoogleLoginResult)
                     observer.onCompleted()
                 }
@@ -72,5 +95,21 @@ final class LoginViewReactor: Reactor {
         guard UserApi.isKakaoTalkLoginAvailable() else { return .empty() }
         return UserApi.shared.rx.loginWithKakaoTalk()
             .map { _ in .setKaKaoLoginResult }
+    }
+}
+
+extension LoginViewReactor: NaverThirdPartyLoginConnectionDelegate {
+    // MARK: 로그인
+    func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
+        naverLoginResultSubject.onNext(.setNaverLoginResult)
+    }
+    // MARK: 토큰
+    func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
+    }
+    // MARK: 로그아웃
+    func oauth20ConnectionDidFinishDeleteToken() {
+    }
+    // MARK: 에러
+    func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
     }
 }
