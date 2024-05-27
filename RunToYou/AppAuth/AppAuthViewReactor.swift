@@ -13,9 +13,10 @@ import AVFoundation
 import Photos
 import CoreLocation
 
-final class AppAuthViewReactor: Reactor {
+final class AppAuthViewReactor: NSObject, Reactor, CLLocationManagerDelegate {
     enum Action {
         case takeAuthority
+        case goNextPage
     }
 
     enum Mutation {
@@ -29,6 +30,10 @@ final class AppAuthViewReactor: Reactor {
     let initialState: State = State()
     let locationManager = CLLocationManager()
 
+    override init() {
+        super.init()
+        locationManager.delegate = self
+    }
     deinit {
         print("\(type(of: self)): Deinited")
     }
@@ -42,6 +47,8 @@ final class AppAuthViewReactor: Reactor {
                 requestPhotoLibraryAuth(),
                 requestLocationAuth()
             ])
+        case .goNextPage:
+            return Observable.just(Mutation.goNextPage)
         }
     }
 
@@ -85,9 +92,21 @@ final class AppAuthViewReactor: Reactor {
     private func requestLocationAuth() -> Observable<Mutation> {
         return Observable.create { observer in
             self.locationManager.requestWhenInUseAuthorization()
-            observer.onNext(.goNextPage)
             observer.onCompleted()
             return Disposables.create()
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            self.action.onNext(.goNextPage)
+        case .restricted, .notDetermined:
+            break
+        case .denied:
+            break
+        @unknown default:
+            return
         }
     }
 }
