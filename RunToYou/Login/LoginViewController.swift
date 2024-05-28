@@ -14,6 +14,7 @@ import KakaoSDKCommon
 import KakaoSDKUser
 import KakaoSDKAuth
 import Alamofire
+import AuthenticationServices
 
 final class LoginViewController: UIViewController, View {
     private let backgroundImage: UIImageView = {
@@ -101,7 +102,11 @@ final class LoginViewController: UIViewController, View {
         .map { Reactor.Action.naverLogin}
         .bind(to: reactor.action)
         .disposed(by: disposeBag)
-        // TODO: 애플 로그인
+
+        appleButton.rx.tap
+        .map { Reactor.Action.appleLogin}
+        .bind(to: reactor.action)
+        .disposed(by: disposeBag)
         // State
         reactor.state.map { $0.goNextPage }
             .filter { $0 }
