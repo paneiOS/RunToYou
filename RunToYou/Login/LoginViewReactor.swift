@@ -102,13 +102,8 @@ final class LoginViewReactor: NSObject, Reactor {
 
     private func requestNaverLogin() -> Observable<Mutation> {
         return Observable.create { observer in
-            guard let vcDelegate = self.vcDelegate else { return Disposables.create() }
-            GIDSignIn.sharedInstance.signIn(
-                withPresenting: vcDelegate) { signInResult, _ in
-                    guard signInResult != nil else { return }
-                    observer.onNext(.setGoogleLoginResult)
-                    observer.onCompleted()
-                }
+            self.naverLoginInstance?.requestThirdPartyLogin()
+            observer.onCompleted()
             return Disposables.create()
         }
     }
