@@ -14,6 +14,7 @@ import KakaoSDKUser
 import GoogleSignIn
 import NaverThirdPartyLogin
 import Alamofire
+import AuthenticationServices
 
 final class LoginViewReactor: NSObject, Reactor {
     enum Action {
@@ -53,11 +54,7 @@ final class LoginViewReactor: NSObject, Reactor {
         case .kakaoLogin:
             return requestKakaoLogin()
         case .naverLogin:
-            return Observable.create { observer in
-                self.naverLoginInstance?.requestThirdPartyLogin()
-                observer.onCompleted()
-                return Disposables.create()
-            }
+            return requestNaverLogin()
         }
     }
 
@@ -95,6 +92,19 @@ final class LoginViewReactor: NSObject, Reactor {
         guard UserApi.isKakaoTalkLoginAvailable() else { return .empty() }
         return UserApi.shared.rx.loginWithKakaoTalk()
             .map { _ in .setKaKaoLoginResult }
+    }
+    
+    private func requestNaverLogin() -> Observable<Mutation> {
+        return Observable.create { observer in
+            guard let vcDelegate = self.vcDelegate else { return Disposables.create() }
+            GIDSignIn.sharedInstance.signIn(
+                withPresenting: vcDelegate) { signInResult, _ in
+                    guard signInResult != nil else { return }
+                    observer.onNext(.setGoogleLoginResult)
+                    observer.onCompleted()
+                }
+            return Disposables.create()
+        }
     }
 }
 
