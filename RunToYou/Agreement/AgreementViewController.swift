@@ -20,7 +20,7 @@ class AgreementViewController: UIViewController {
 
     private let allAgreeView: UIView = {
         let view = CheckView()
-        view.setupData(ment: "전체 동의합니다.", fontSize: 20)
+        view.setupData(ment: "전체 동의합니다.", fontSize: 16)
         return view
     }()
 
@@ -65,6 +65,13 @@ class AgreementViewController: UIViewController {
         return view
     }()
 
+    private let nextButton: CommonButton = {
+        let btn = CommonButton()
+        btn.setupData("다음")
+        btn.makeDisable()
+        return btn
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -105,6 +112,7 @@ class AgreementViewController: UIViewController {
         self.view.addSubview(healthAgreeView)
         self.view.addSubview(gpsAgreeView)
         self.view.addSubview(eventAgreeView)
+        self.view.addSubview(nextButton)
     }
 
     private func setupLayout() {
@@ -114,7 +122,7 @@ class AgreementViewController: UIViewController {
         }
         allAgreeView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(20)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(30)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(50)
             $0.height.equalTo(20)
         }
         divider.snp.makeConstraints {
@@ -151,6 +159,11 @@ class AgreementViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.top.equalTo(gpsAgreeView.snp.bottom).offset(12)
             $0.height.equalTo(20)
+        }
+        nextButton.snp.makeConstraints {
+            $0.height.equalTo(55)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 }
