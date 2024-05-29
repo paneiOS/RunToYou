@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import ReactorKit
+import RxCocoa
+import RxSwift
 
-class AgreementViewController: UIViewController {
+class AgreementViewController: UIViewController, View {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "런투유 서비스를 이용하기 위한\n약관에 동의해주세요"
@@ -18,7 +21,7 @@ class AgreementViewController: UIViewController {
         return label
     }()
 
-    private let allAgreeView: UIView = {
+    private let allAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(ment: "전체 동의합니다.", fontSize: 16)
         return view
@@ -30,36 +33,36 @@ class AgreementViewController: UIViewController {
         return view
     }()
 
-    private let termsUseAgreeView: UIView = {
+    private let termsUseAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(linkMent: "서비스 이용약관", ment: "동의(필수)")
         return view
     }()
 
-    private let privacyAgreeView: UIView = {
+    private let privacyAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(linkMent: "개인정보 처리방침", ment: "동의(필수)")
         return view
     }()
 
-    private let ageAgreeView: UIView = {
+    private let ageAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(ment: "만 14세 이상 (필수)")
         return view
     }()
 
-    private let healthAgreeView: UIView = {
+    private let healthAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(linkMent: "건강,민감정보 수집이용", ment: "동의(필수)")
         return view
     }()
-    private let gpsAgreeView: UIView = {
+    private let gpsAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(ment: "GPS 수집이용 동의(선택)")
         return view
     }()
 
-    private let eventAgreeView: UIView = {
+    private let eventAgreeView: CheckView = {
         let view = CheckView()
         view.setupData(linkMent: "이벤트,혜택소식", ment: "받기 (선택)")
         return view
@@ -72,22 +75,60 @@ class AgreementViewController: UIViewController {
         return btn
     }()
 
+    typealias Reactor = AgreementViewReactor
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.reactor = AgreementViewReactor()
         setupNavi()
         addSubView()
         setupLayout()
-        for family in UIFont.familyNames.sorted() {
-            print("Family: \(family)")
-            for fontName in UIFont.fontNames(forFamilyName: family) {
-                print("Font: \(fontName)")
-            }
-        }
     }
 
     deinit {
         print("\(type(of: self)): Deinited")
+    }
+
+    func bind(reactor: AgreementViewReactor) {
+        // Action
+        bindButton(allAgreeView.checkButton, to: .agreeAll, reactor)
+        bindButton(allAgreeView.agreeButton, to: .agreeAll, reactor)
+        bindButton(termsUseAgreeView.checkButton, to: .agreeUseTerm, reactor)
+        bindButton(termsUseAgreeView.agreeButton, to: .agreeUseTerm, reactor)
+        bindButton(privacyAgreeView.checkButton, to: .agreePrivacy, reactor)
+        bindButton(privacyAgreeView.agreeButton, to: .agreePrivacy, reactor)
+        bindButton(ageAgreeView.checkButton, to: .agreeAge, reactor)
+        bindButton(ageAgreeView.agreeButton, to: .agreeAge, reactor)
+        bindButton(healthAgreeView.checkButton, to: .agreeHealth, reactor)
+        bindButton(healthAgreeView.agreeButton, to: .agreeHealth, reactor)
+        bindButton(gpsAgreeView.checkButton, to: .agreeGps, reactor)
+        bindButton(gpsAgreeView.agreeButton, to: .agreeGps, reactor)
+        bindButton(eventAgreeView.checkButton, to: .agreeEvent, reactor)
+        bindButton(eventAgreeView.agreeButton, to: .agreeEvent, reactor)
+        // State
+        bindImage(reactor, path: \.allChecked, button: allAgreeView.checkButton)
+        bindImage(reactor, path: \.termUseChecked, button: termsUseAgreeView.checkButton)
+        bindImage(reactor, path: \.privacyChecked, button: privacyAgreeView.checkButton)
+        bindImage(reactor, path: \.ageChecked, button: ageAgreeView.checkButton)
+        bindImage(reactor, path: \.healthChecked, button: healthAgreeView.checkButton)
+        bindImage(reactor, path: \.gpsChecked, button: gpsAgreeView.checkButton)
+        bindImage(reactor, path: \.eventChecked, button: eventAgreeView.checkButton)
+    }
+
+    private func bindButton(_ button: UIButton, to action: Reactor.Action, _ reactor: AgreementViewReactor) {
+        button.rx.tap
+            .map { action }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+
+    func bindImage(_ reactor: AgreementViewReactor, path: KeyPath<AgreementViewReactor.State, Bool>, button: UIButton) {
+        reactor.state.map { state in
+            return state[keyPath: path] ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
+            .bind(to: button.rx.image())
+            .disposed(by: disposeBag)
     }
 
     private func setupNavi() {
@@ -175,7 +216,7 @@ final class CheckView: UIView {
         .foregroundColor: UIColor.black
     ]
 
-    private let checkButton: UIButton = {
+    let checkButton: UIButton = {
         let btn = UIButton(type: .custom)
         btn.setImage( .checkBase, for: .normal)
         return btn
@@ -186,7 +227,7 @@ final class CheckView: UIView {
         return btn
     }()
 
-    private let agreeButton: UIButton = {
+    let agreeButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = .customFont(.notoSans, family: .regular, size: 14)

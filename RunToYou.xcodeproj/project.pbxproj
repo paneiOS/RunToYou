@@ -27,6 +27,7 @@
 		6C7D743F2BEB2C040099CD15 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D743E2BEB2C040099CD15 /* UIFont+.swift */; };
 		6C7D74412BEB2C1F0099CD15 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */; };
 		6C7D74482BF1E5DC0099CD15 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6C7D74472BF1E5DC0099CD15 /* ReactorKit */; };
+		6CCA27562C06E97A00EAF894 /* AgreementViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CCA27552C06E97A00EAF894 /* AgreementViewReactor.swift */; };
 		6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		6C7D74352BEB2A2E0099CD15 /* NotoSansKR-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.ttf"; sourceTree = "<group>"; };
 		6C7D743E2BEB2C040099CD15 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		6CCA27552C06E97A00EAF894 /* AgreementViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreementViewReactor.swift; sourceTree = "<group>"; };
 		6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				6C48FCE42C05AA77009C0A02 /* AgreementViewController.swift */,
+				6CCA27552C06E97A00EAF894 /* AgreementViewReactor.swift */,
 			);
 			path = Agreement;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				6C7D743F2BEB2C040099CD15 /* UIFont+.swift in Sources */,
 				6C48FCE52C05AA77009C0A02 /* AgreementViewController.swift in Sources */,
 				39E6F0E52BD68BAB00C8D4C9 /* SceneDelegate.swift in Sources */,
+				6CCA27562C06E97A00EAF894 /* AgreementViewReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
