@@ -81,13 +81,6 @@ final class AppAuthViewController: UIViewController, View {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-            return
-        }
-        guard let window = windowScene.windows.first else { return }
-        let navigationController = UINavigationController(rootViewController: self)
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
         self.reactor = AppAuthViewReactor()
         setupLayout()
     }
@@ -115,11 +108,6 @@ final class AppAuthViewController: UIViewController, View {
 
     // TODO: 로그인화면 이동
     private func goNextView() {
-        let nextVC = AgreementViewController()
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .black
-        self.navigationItem.backBarButtonItem = backBarButtonItem
-        navigationController?.pushViewController(nextVC, animated: true)
     }
 
     private func setupLayout() {
