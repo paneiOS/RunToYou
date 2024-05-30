@@ -9,7 +9,7 @@ import UIKit
 
 extension UIFont {
     enum Family: String {
-        case black, bold, light, medium, regular, thin
+        case black, bold = "Thin_Bold", light, medium, regular, thin
     }
 
     enum CustomFont {
@@ -19,7 +19,7 @@ extension UIFont {
     static func customFont(_ name: CustomFont, family: Family, size: CGFloat) -> UIFont {
         switch name {
         case .notoSans:
-            return UIFont(name: "NotoSansKR-\(family)", size: size)!
+            return UIFont(name: "NotoSansKR-\(family.rawValue)", size: size)!
         }
     }
 }
