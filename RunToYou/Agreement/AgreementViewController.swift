@@ -154,7 +154,7 @@ class AgreementViewController: UIViewController, View {
             .bind(to: button.rx.image())
             .disposed(by: disposeBag)
     }
-
+    // TODO: 회원가입 화면 이동 개발
     private func goNextPage() {
     }
 
