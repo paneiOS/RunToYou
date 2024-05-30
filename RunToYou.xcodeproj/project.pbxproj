@@ -17,6 +17,7 @@
 		39E6F0FB2BD68C3500C8D4C9 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F0FA2BD68C3500C8D4C9 /* Moya */; };
 		39E6F10E2BD68FFF00C8D4C9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10D2BD68FFF00C8D4C9 /* RxCocoa */; };
 		39E6F1102BD68FFF00C8D4C9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 39E6F10F2BD68FFF00C8D4C9 /* RxSwift */; };
+		6C2E60CB2C0855520003F7E8 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2E60CA2C0855520003F7E8 /* CommonButton.swift */; };
 		6C7D74362BEB2A2E0099CD15 /* NotoSansKR-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74312BEB2A2E0099CD15 /* NotoSansKR-VariableFont_wght.ttf */; };
 		6C7D74372BEB2A2E0099CD15 /* NotoSansKR-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74322BEB2A2E0099CD15 /* NotoSansKR-Medium.ttf */; };
 		6C7D74382BEB2A2E0099CD15 /* NotoSansKR-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C7D74332BEB2A2E0099CD15 /* NotoSansKR-Regular.ttf */; };
@@ -37,6 +38,7 @@
 		39E6F0EB2BD68BAC00C8D4C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39E6F0EE2BD68BAC00C8D4C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39E6F0F02BD68BAC00C8D4C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6C2E60CA2C0855520003F7E8 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		6C7D74312BEB2A2E0099CD15 /* NotoSansKR-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		6C7D74322BEB2A2E0099CD15 /* NotoSansKR-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.ttf"; sourceTree = "<group>"; };
 		6C7D74332BEB2A2E0099CD15 /* NotoSansKR-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.ttf"; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		39E6F0E12BD68BAB00C8D4C9 /* RunToYou */ = {
 			isa = PBXGroup;
 			children = (
+				6C2E60C92C0854AC0003F7E8 /* CommonView */,
 				39E6F0E22BD68BAB00C8D4C9 /* AppDelegate.swift */,
 				39E6F0E42BD68BAB00C8D4C9 /* SceneDelegate.swift */,
 				39D562B42BD696A000111E9C /* .swiftlint.yml */,
@@ -91,6 +94,14 @@
 				6C7D743C2BEB2B630099CD15 /* AppAuth */,
 			);
 			path = RunToYou;
+			sourceTree = "<group>";
+		};
+		6C2E60C92C0854AC0003F7E8 /* CommonView */ = {
+			isa = PBXGroup;
+			children = (
+				6C2E60CA2C0855520003F7E8 /* CommonButton.swift */,
+			);
+			path = CommonView;
 			sourceTree = "<group>";
 		};
 		6C7D74302BEB2A120099CD15 /* Fonts */ = {
@@ -245,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2E60CB2C0855520003F7E8 /* CommonButton.swift in Sources */,
 				39E6F0E72BD68BAB00C8D4C9 /* AppAuthViewController.swift in Sources */,
 				6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */,
 				39E6F0E32BD68BAB00C8D4C9 /* AppDelegate.swift in Sources */,
