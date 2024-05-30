@@ -16,6 +16,7 @@ final class AgreementViewReactor: Reactor {
         case agreeHealth
         case agreeGps
         case agreeEvent
+        case goNextPage
     }
 
     enum Mutation {
@@ -60,6 +61,8 @@ final class AgreementViewReactor: Reactor {
             return .just(Mutation.agreeGps)
         case .agreeEvent:
             return .just(Mutation.agreeEvent)
+        case .goNextPage:
+            return Observable.empty()
         }
     }
 

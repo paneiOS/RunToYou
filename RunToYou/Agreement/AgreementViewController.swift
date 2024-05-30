@@ -107,6 +107,7 @@ class AgreementViewController: UIViewController, View {
         bindButton(gpsAgreeView.agreeButton, to: .agreeGps, reactor)
         bindButton(eventAgreeView.checkButton, to: .agreeEvent, reactor)
         bindButton(eventAgreeView.agreeButton, to: .agreeEvent, reactor)
+        bindButton(nextButton, to: .goNextPage, reactor)
         // State
         bindImage(reactor, path: \.allChecked, button: allAgreeView.checkButton)
         bindImage(reactor, path: \.termUseChecked, button: termsUseAgreeView.checkButton)
@@ -115,6 +116,28 @@ class AgreementViewController: UIViewController, View {
         bindImage(reactor, path: \.healthChecked, button: healthAgreeView.checkButton)
         bindImage(reactor, path: \.gpsChecked, button: gpsAgreeView.checkButton)
         bindImage(reactor, path: \.eventChecked, button: eventAgreeView.checkButton)
+
+        Observable.combineLatest(
+             reactor.state.map { $0.termUseChecked },
+             reactor.state.map { $0.privacyChecked },
+             reactor.state.map { $0.ageChecked },
+             reactor.state.map { $0.healthChecked }
+
+         )
+         .map { $0 && $1 && $2 && $3 }
+         .distinctUntilChanged()
+         .observe(on: MainScheduler.instance)
+         .bind(onNext: { [weak self] isChecked in
+             guard let self = self else { return }
+             isChecked ? (self.nextButton.makeEnable()) : self.nextButton.makeDisable()
+         })
+         .disposed(by: disposeBag)
+
+        reactor.action.filter { $0 == .goNextPage }
+            .subscribe(onNext: { [weak self] _ in
+                self?.goNextPage()
+            })
+            .disposed(by: disposeBag)
     }
 
     private func bindButton(_ button: UIButton, to action: Reactor.Action, _ reactor: AgreementViewReactor) {
@@ -124,11 +147,15 @@ class AgreementViewController: UIViewController, View {
             .disposed(by: disposeBag)
     }
 
-    func bindImage(_ reactor: AgreementViewReactor, path: KeyPath<AgreementViewReactor.State, Bool>, button: UIButton) {
+    private func bindImage(_ reactor: AgreementViewReactor, path: KeyPath<AgreementViewReactor.State, Bool>, button: UIButton) {
         reactor.state.map { state in
             return state[keyPath: path] ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
+            .observe(on: MainScheduler.instance)
             .bind(to: button.rx.image())
             .disposed(by: disposeBag)
+    }
+
+    private func goNextPage() {
     }
 
     private func setupNavi() {
