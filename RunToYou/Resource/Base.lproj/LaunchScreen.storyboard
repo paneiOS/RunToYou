@@ -16,15 +16,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LuanchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="q8l-af-EK7">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="launchLabel" translatesAutoresizingMaskIntoConstraints="NO" id="KZu-5U-p6g">
                                 <rect key="frame" x="72.666666666666686" y="378.66666666666669" width="248" height="95"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="95" id="VXz-tc-RTt"/>
                                     <constraint firstAttribute="width" constant="248" id="b40-fD-CY4"/>
                                 </constraints>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LuanchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="q8l-af-EK7">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

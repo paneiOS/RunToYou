@@ -2,16 +2,52 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>사용자의 위치 정보와 걸음 수를 제공하기 위해 권한이 필요합니다.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치 정보와 걸음 수를 제공하기 위해 권한이 필요합니다.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>사용자의 위치 정보와 걸음 수를 제공하기 위해 권한이 필요합니다.</string>
-	<key>NSCameraUsageDescription</key>
-	<string>사용자의 사진 공유를 위해 카메라 권한이 필요합니다.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사용자의 사진 공유를 위해 앨범 권한이 필요합니다.</string>
+    <key>GIDClientID</key>
+    <string>14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1.apps.googleusercontent.com</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao625a045f6d46a73f5449c3345256774d</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao625a045f6d46a73f5449c3345256774d:ouath</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.14147831376-a5665r4kgvs2g67b7hlirua2vleg4vb1</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>naver</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>runtoyou</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>naversearchthirdlogin</string>
+		<string>naversearchapp</string>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>NotoSansKR-Thin.ttf</string>
