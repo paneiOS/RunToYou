@@ -18,6 +18,10 @@ final class CommonButton: UIButton {
         setupButton()
     }
 
+    convenience init() {
+        self.init(type: .system)
+    }
+
     deinit {
         print("\(type(of: self)): Deinited")
     }
@@ -32,12 +36,14 @@ final class CommonButton: UIButton {
     func makeDisable() {
         backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         setTitleColor(UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 0.4), for: .normal)
+        titleLabel?.font = .customFont(.notoSans, family: .medium, size: 18)
         isEnabled = false
     }
 
     func makeEnable() {
         backgroundColor = .customColor(.mainDark)
         setTitleColor(.white, for: .normal)
+        titleLabel?.font = .customFont(.notoSans, family: .medium, size: 18)
         isEnabled = true
     }
 
