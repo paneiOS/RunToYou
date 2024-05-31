@@ -8,8 +8,8 @@
 import UIKit
 import SnapKit
 
-class JoinViewController: UIViewController {
-    var buttonConfig: UIButton.Configuration = {
+final class JoinViewController: UIViewController {
+    private var buttonConfig: UIButton.Configuration = {
         var config = UIButton.Configuration.filled()
         config.imagePadding = 8
         config.contentInsets = .zero
@@ -19,7 +19,7 @@ class JoinViewController: UIViewController {
         return config
     }()
 
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "거의 다 왔어요!\n런투유 서비스 이용에 필요한\n정보를 입력해 주세요."
         label.textAlignment = .left
@@ -28,41 +28,41 @@ class JoinViewController: UIViewController {
         return label
     }()
 
-    let nickNameLabel: UILabel = {
+    private let nickNameLabel: UILabel = {
         let label = UILabel()
         label.text = "닉네임"
         label.font = .customFont(.notoSans, family: .regular, size: 18)
         return label
     }()
 
-    let nickNameTextField: CommonTextField = {
+    private let nickNameTextField: CommonTextField = {
         let textField = CommonTextField()
         textField.placeholder = "닉네임을 입력해주세요"
         return textField
     }()
 
-    let birthLabel: UILabel = {
+    private let birthLabel: UILabel = {
         let label = UILabel()
         label.text = "출생연도"
         label.font = .customFont(.notoSans, family: .regular, size: 18)
         return label
     }()
 
-    let birthTextField: CommonTextField = {
+    private let birthTextField: CommonTextField = {
         let textField = CommonTextField()
         textField.placeholder = "출생 연도를 선택하세요"
         textField.isUserInteractionEnabled = false
         return textField
     }()
 
-    let sexLabel: UILabel = {
+    private let sexLabel: UILabel = {
         let label = UILabel()
         label.text = "성별"
         label.font = .customFont(.notoSans, family: .regular, size: 18)
         return label
     }()
 
-    lazy var maleButton: UIButton = {
+    private lazy var maleButton: UIButton = {
         var titleString = AttributedString("남성")
         titleString.font = .customFont(.notoSans, family: .regular, size: 16)
         buttonConfig.attributedTitle =  titleString
@@ -72,7 +72,7 @@ class JoinViewController: UIViewController {
         return btn
     }()
 
-    lazy var femaleButton: UIButton = {
+    private lazy var femaleButton: UIButton = {
         var titleString = AttributedString("여성")
         titleString.font = .customFont(.notoSans, family: .regular, size: 16)
         buttonConfig.attributedTitle =  titleString
@@ -82,7 +82,7 @@ class JoinViewController: UIViewController {
         return btn
     }()
 
-    lazy var notRespondButton: UIButton = {
+    private lazy var notRespondButton: UIButton = {
         var titleString = AttributedString("대답하고 싶지 않음")
         titleString.font = .customFont(.notoSans, family: .regular, size: 16)
         buttonConfig.attributedTitle =  titleString
@@ -92,7 +92,7 @@ class JoinViewController: UIViewController {
         return btn
     }()
 
-    let sexStackView: UIStackView = {
+    private let sexStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 20
