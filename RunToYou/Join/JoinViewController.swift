@@ -82,7 +82,7 @@ final class JoinViewController: UIViewController {
         return btn
     }()
 
-    private lazy var notRespondButton: UIButton = {
+    private lazy var noCommentButton: UIButton = {
         var titleString = AttributedString("대답하고 싶지 않음")
         titleString.font = .customFont(.notoSans, family: .regular, size: 16)
         buttonConfig.attributedTitle =  titleString
@@ -120,7 +120,7 @@ final class JoinViewController: UIViewController {
     private func addSubView() {
         sexStackView.addArrangedSubview(maleButton)
         sexStackView.addArrangedSubview(femaleButton)
-        sexStackView.addArrangedSubview(notRespondButton)
+        sexStackView.addArrangedSubview(noCommentButton)
         self.view.backgroundColor = .white
         self.view.addSubview(titleLabel)
         self.view.addSubview(nickNameLabel)
@@ -170,7 +170,7 @@ final class JoinViewController: UIViewController {
         femaleButton.snp.makeConstraints {
             $0.width.equalTo(54)
         }
-        notRespondButton.snp.makeConstraints {
+        noCommentButton.snp.makeConstraints {
             $0.width.equalTo(149)
         }
         nextButton.snp.makeConstraints {
