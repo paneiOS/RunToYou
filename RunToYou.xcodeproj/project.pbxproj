@@ -29,6 +29,7 @@
 		6C7D74412BEB2C1F0099CD15 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */; };
 		6C7D74482BF1E5DC0099CD15 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6C7D74472BF1E5DC0099CD15 /* ReactorKit */; };
 		6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */; };
+		6CF57B3F2C09CED800AD78B2 /* JoinViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57B3E2C09CED800AD78B2 /* JoinViewReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		6C7D743E2BEB2C040099CD15 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewReactor.swift; sourceTree = "<group>"; };
+		6CF57B3E2C09CED800AD78B2 /* JoinViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				6C2E60CD2C0856FE0003F7E8 /* JoinViewController.swift */,
+				6CF57B3E2C09CED800AD78B2 /* JoinViewReactor.swift */,
 			);
 			path = Join;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				6C2E60CB2C0855520003F7E8 /* CommonButton.swift in Sources */,
 				39E6F0E72BD68BAB00C8D4C9 /* AppAuthViewController.swift in Sources */,
 				6C2E60CE2C0856FE0003F7E8 /* JoinViewController.swift in Sources */,
+				6CF57B3F2C09CED800AD78B2 /* JoinViewReactor.swift in Sources */,
 				6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */,
 				39E6F0E32BD68BAB00C8D4C9 /* AppDelegate.swift in Sources */,
 				6C7D74412BEB2C1F0099CD15 /* UIColor+.swift in Sources */,
@@ -422,7 +426,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CB95NTZJ5Z;
+				DEVELOPMENT_TEAM = WR274B83CM;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunToYou/Info.plist;
@@ -450,7 +454,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CB95NTZJ5Z;
+				DEVELOPMENT_TEAM = WR274B83CM;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RunToYou/Info.plist;

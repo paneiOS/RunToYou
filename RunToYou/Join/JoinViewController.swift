@@ -7,8 +7,11 @@
 
 import UIKit
 import SnapKit
+import ReactorKit
+import RxSwift
+import RxCocoa
 
-final class JoinViewController: UIViewController {
+final class JoinViewController: UIViewController, View {
     private var buttonConfig: UIButton.Configuration = {
         var config = UIButton.Configuration.filled()
         config.imagePadding = 8
@@ -51,8 +54,12 @@ final class JoinViewController: UIViewController {
     private let birthTextField: CommonTextField = {
         let textField = CommonTextField()
         textField.placeholder = "출생 연도를 선택하세요"
-        textField.isUserInteractionEnabled = false
         return textField
+    }()
+
+    private let yearPicker: UIPickerView = {
+        let picker = UIPickerView()
+        return picker
     }()
 
     private let sexLabel: UILabel = {
@@ -100,23 +107,90 @@ final class JoinViewController: UIViewController {
         stackView.distribution = .equalSpacing
         return stackView
     }()
+
     private let nextButton: CommonButton = {
         let btn = CommonButton()
         btn.setupData("다음")
         btn.makeDisable()
         return btn
     }()
+
+    var disposeBag = DisposeBag()
+    typealias Reactor = JoinViewReactor
+    private let years: [Int] = {
+          let currentYear = Calendar.current.component(.year, from: Date())
+          return Array((currentYear - 100)...currentYear)
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavi()
         addSubView()
         setupLayout()
+        setupPickerView()
         addTabGuesture()
     }
 
     deinit {
         print("\(type(of: self)): Deinited")
     }
+
+    private func setupPickerView() {
+        birthTextField.inputView = yearPicker
+        birthTextField.tintColor = .clear
+        Observable.just(years)
+            .bind(to: yearPicker.rx.itemTitles) { _, years in
+                return "\(years)"
+            }
+            .disposed(by: disposeBag)
+        yearPicker.selectRow(years.count - 1, inComponent: 0, animated: false)
+    }
+
+    func bind(reactor: JoinViewReactor) {
+        yearPicker.rx.itemSelected
+            .map { self.years[$0.row] }
+            .map { Reactor.Action.selectYear($0) }
+             .bind(to: reactor.action)
+             .disposed(by: disposeBag)
+
+        maleButton.rx.tap
+            .map { Reactor.Action.checkMale }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        femaleButton.rx.tap
+            .map { Reactor.Action.checkFemale }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        noCommentButton.rx.tap
+            .map { Reactor.Action.checkNoComment }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        // State
+        reactor.state.map { $0.year }
+            .filter { $0 != 0 }
+            .map { "\($0)" }
+            .observe(on: MainScheduler.instance)
+            .bind(to: birthTextField.rx.text)
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.maleChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
+            .observe(on: MainScheduler.instance)
+            .bind(to: maleButton.rx.image())
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.femaleChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
+            .observe(on: MainScheduler.instance)
+            .bind(to: femaleButton.rx.image())
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.noCommentChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
+            .observe(on: MainScheduler.instance)
+            .bind(to: noCommentButton.rx.image())
+            .disposed(by: disposeBag)
+    }
+
     private func addSubView() {
         sexStackView.addArrangedSubview(maleButton)
         sexStackView.addArrangedSubview(femaleButton)
