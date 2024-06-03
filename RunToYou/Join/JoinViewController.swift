@@ -100,6 +100,12 @@ final class JoinViewController: UIViewController {
         stackView.distribution = .equalSpacing
         return stackView
     }()
+    private let nextButton: CommonButton = {
+        let btn = CommonButton()
+        btn.setupData("다음")
+        btn.makeDisable()
+        return btn
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavi()
@@ -122,6 +128,7 @@ final class JoinViewController: UIViewController {
         self.view.addSubview(birthTextField)
         self.view.addSubview(sexLabel)
         self.view.addSubview(sexStackView)
+        self.view.addSubview(nextButton)
     }
 
     private func setupLayout() {
@@ -164,6 +171,11 @@ final class JoinViewController: UIViewController {
         }
         notRespondButton.snp.makeConstraints {
             $0.width.equalTo(149)
+        }
+        nextButton.snp.makeConstraints {
+            $0.height.equalTo(55)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
 
