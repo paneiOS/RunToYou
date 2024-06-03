@@ -11,7 +11,7 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
-final class JoinViewController: UIViewController, View {
+final class JoinViewController: UIViewController {
     private var buttonConfig: UIButton.Configuration = {
         var config = UIButton.Configuration.filled()
         config.imagePadding = 8
@@ -115,12 +115,12 @@ final class JoinViewController: UIViewController, View {
         return btn
     }()
 
-    var disposeBag = DisposeBag()
-    typealias Reactor = JoinViewReactor
     private let years: [Int] = {
           let currentYear = Calendar.current.component(.year, from: Date())
           return Array((currentYear - 100)...currentYear)
     }()
+
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,49 +146,8 @@ final class JoinViewController: UIViewController, View {
         yearPicker.selectRow(years.count - 1, inComponent: 0, animated: false)
     }
 
-    func bind(reactor: JoinViewReactor) {
-        yearPicker.rx.itemSelected
-            .map { self.years[$0.row] }
-            .map { Reactor.Action.selectYear($0) }
-             .bind(to: reactor.action)
-             .disposed(by: disposeBag)
-
-        maleButton.rx.tap
-            .map { Reactor.Action.checkMale }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-
-        femaleButton.rx.tap
-            .map { Reactor.Action.checkFemale }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-
-        noCommentButton.rx.tap
-            .map { Reactor.Action.checkNoComment }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        // State
-        reactor.state.map { $0.year }
-            .filter { $0 != 0 }
-            .map { "\($0)" }
-            .observe(on: MainScheduler.instance)
-            .bind(to: birthTextField.rx.text)
-            .disposed(by: disposeBag)
-
-        reactor.state.map { $0.maleChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
-            .observe(on: MainScheduler.instance)
-            .bind(to: maleButton.rx.image())
-            .disposed(by: disposeBag)
-
-        reactor.state.map { $0.femaleChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
-            .observe(on: MainScheduler.instance)
-            .bind(to: femaleButton.rx.image())
-            .disposed(by: disposeBag)
-
-        reactor.state.map { $0.noCommentChecked ? UIImage(named: "checkBox") : UIImage(named: "checkBase") }
-            .observe(on: MainScheduler.instance)
-            .bind(to: noCommentButton.rx.image())
-            .disposed(by: disposeBag)
+    // TODO: 팀만들기 화면 이동
+    private func goNextView() {
     }
 
     private func addSubView() {
@@ -273,5 +232,70 @@ final class JoinViewController: UIViewController, View {
 
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension JoinViewController: View {
+    typealias Reactor = JoinViewReactor
+
+    func bind(reactor: JoinViewReactor) {
+        bindPickerView(reactor)
+        bindTextField(nickNameTextField, to: Reactor.Action.inputNickName, reactor)
+        bindTextField(birthTextField, to: Reactor.Action.inputBirth, reactor)
+        bindButton(maleButton, to: .checkMale, reactor)
+        bindButton(femaleButton, to: .checkFemale, reactor)
+        bindButton(noCommentButton, to: .checkNoComment, reactor)
+        bindButton(nextButton, to: .goNextPage, reactor)
+        // State
+        bindStateToTextField(reactor)
+        bindStateToNextButton(reactor)
+        bindStateToButtonImage(maleButton, path: \.maleButtonImage, reactor)
+        bindStateToButtonImage(femaleButton, path: \.femaleButtonImage, reactor)
+        bindStateToButtonImage(noCommentButton, path: \.noCommentButtonImage, reactor)
+    }
+    private func bindPickerView(_ reactor: JoinViewReactor) {
+        yearPicker.rx.itemSelected
+            .map { self.years[$0.row] }
+            .map { Reactor.Action.selectYear($0) }
+             .bind(to: reactor.action)
+             .disposed(by: disposeBag)
+    }
+
+    private func bindTextField(_ textField: UITextField, to action: @escaping (String) -> Reactor.Action, _ reactor: JoinViewReactor) {
+        textField.rx.text.orEmpty
+            .map(action)
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindButton(_ button: UIButton, to action: Reactor.Action, _ reactor: JoinViewReactor) {
+        button.rx.tap
+            .map { action }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindStateToTextField(_ reactor: JoinViewReactor) {
+        reactor.state.map { $0.year != 0 ? "\($0.year)" : nil }
+            .observe(on: MainScheduler.instance)
+            .bind(to: birthTextField.rx.text)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindStateToNextButton(_ reactor: JoinViewReactor) {
+        reactor.state.map { ($0.isNextButtonEnabled, $0.goNextPage) }
+            .subscribe(onNext: { [weak self] (isEnable, nextPage) in
+                guard let self = self else { return }
+                isEnable ? (self.nextButton.makeEnable()) : (self.nextButton.makeDisable())
+                if nextPage { self.goNextView() }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindStateToButtonImage(_ button: UIButton, path: KeyPath<JoinViewReactor.State, UIImage?>, _ reactor: JoinViewReactor) {
+        reactor.state.map { $0[keyPath: path] }
+            .observe(on: MainScheduler.instance)
+            .bind(to: button.rx.image())
+            .disposed(by: disposeBag)
     }
 }
