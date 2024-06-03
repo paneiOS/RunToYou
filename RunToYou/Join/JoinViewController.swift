@@ -111,6 +111,7 @@ final class JoinViewController: UIViewController {
         setupNavi()
         addSubView()
         setupLayout()
+        addTabGuesture()
     }
 
     deinit {
@@ -189,5 +190,14 @@ final class JoinViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+
+    private func addTabGuesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        self.view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
