@@ -67,6 +67,10 @@ final class TeamCreateViewController: UIViewController {
         view.backgroundColor = .white
     }
 
+    deinit {
+        print("\(type(of: self)): Deinited")
+    }
+
     private func setupLayout() {
         view.addSubview(titleLabel)
         view.addSubview(teamCreateButton)
