@@ -27,6 +27,8 @@
 		6C7D743F2BEB2C040099CD15 /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D743E2BEB2C040099CD15 /* UIFont+.swift */; };
 		6C7D74412BEB2C1F0099CD15 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */; };
 		6C7D74482BF1E5DC0099CD15 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6C7D74472BF1E5DC0099CD15 /* ReactorKit */; };
+		6CB77D9A2C293003005F3974 /* TeamCreateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77D992C293003005F3974 /* TeamCreateDetailViewController.swift */; };
+		6CB8D3992C1A94E200980A64 /* TeamCreateViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB8D3982C1A94E200980A64 /* TeamCreateViewReactor.swift */; };
 		6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */; };
 		6CF57B422C0EC10E00AD78B2 /* TeamCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57B412C0EC10E00AD78B2 /* TeamCreateViewController.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +51,8 @@
 		6C7D74352BEB2A2E0099CD15 /* NotoSansKR-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Thin.ttf"; sourceTree = "<group>"; };
 		6C7D743E2BEB2C040099CD15 /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		6C7D74402BEB2C1F0099CD15 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		6CB77D992C293003005F3974 /* TeamCreateDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateDetailViewController.swift; sourceTree = "<group>"; };
+		6CB8D3982C1A94E200980A64 /* TeamCreateViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateViewReactor.swift; sourceTree = "<group>"; };
 		6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewReactor.swift; sourceTree = "<group>"; };
 		6CF57B412C0EC10E00AD78B2 /* TeamCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -154,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				6CF57B412C0EC10E00AD78B2 /* TeamCreateViewController.swift */,
+				6CB8D3982C1A94E200980A64 /* TeamCreateViewReactor.swift */,
+				6CB77D992C293003005F3974 /* TeamCreateDetailViewController.swift */,
 			);
 			path = TeamCreate;
 			sourceTree = "<group>";
@@ -276,7 +282,9 @@
 				6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */,
 				39E6F0E32BD68BAB00C8D4C9 /* AppDelegate.swift in Sources */,
 				6C7D74412BEB2C1F0099CD15 /* UIColor+.swift in Sources */,
+				6CB8D3992C1A94E200980A64 /* TeamCreateViewReactor.swift in Sources */,
 				6C2E60D02C08594A0003F7E8 /* CommonTextField.swift in Sources */,
+				6CB77D9A2C293003005F3974 /* TeamCreateDetailViewController.swift in Sources */,
 				6C7D743F2BEB2C040099CD15 /* UIFont+.swift in Sources */,
 				39E6F0E52BD68BAB00C8D4C9 /* SceneDelegate.swift in Sources */,
 			);

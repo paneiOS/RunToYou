@@ -7,11 +7,11 @@
 
 import UIKit
 import SnapKit
-import ReactorKit
 import RxSwift
 import RxCocoa
+import ReactorKit
 
-final class TeamCreateViewController: UIViewController {
+final class TeamCreateViewController: UIViewController, View {
     private var buttonConfig: UIButton.Configuration = {
         var config = UIButton.Configuration.filled()
         config.imagePadding = 20
@@ -37,7 +37,7 @@ final class TeamCreateViewController: UIViewController {
         btn.layer.cornerRadius = 20
         btn.contentHorizontalAlignment = .leading
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 0.2).cgColor
+        btn.layer.borderColor = CGColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 0.2)
         return btn
     }()
 
@@ -49,7 +49,7 @@ final class TeamCreateViewController: UIViewController {
         btn.layer.cornerRadius = 20
         btn.contentHorizontalAlignment = .leading
         btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 0.2).cgColor
+        btn.layer.borderColor = CGColor(red: 34/255, green: 34/255, blue: 34/255, alpha: 0.2)
         return btn
     }()
 
@@ -60,6 +60,8 @@ final class TeamCreateViewController: UIViewController {
         return btn
     }()
 
+    var disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavi()
@@ -67,8 +69,70 @@ final class TeamCreateViewController: UIViewController {
         view.backgroundColor = .white
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reactor = TeamCreateViewReactor()
+        self.nextButton.makeDisable()
+    }
+
     deinit {
         print("\(type(of: self)): Deinited")
+    }
+
+    func bind(reactor: TeamCreateViewReactor) {
+        teamCreateButton.rx.tap
+            .map { Reactor.Action.createTeam }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        teamJoinButton.rx.tap
+            .map { Reactor.Action.joinTeam }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        nextButton.rx.tap
+            .map { Reactor.Action.goNextPage }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.createButtonColor }
+            .observe(on: MainScheduler.instance)
+            .bind(to: teamCreateButton.layer.rx.borderColor)
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.joinButtonColor }
+            .observe(on: MainScheduler.instance)
+            .bind(to: teamJoinButton.layer.rx.borderColor)
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.isNextButtonEnable }
+            .filter { $0 }
+            .observe(on: MainScheduler.instance)
+            .bind { [weak self] _ in
+                self?.nextButton.makeEnable()
+            }
+            .disposed(by: disposeBag)
+
+        reactor.state.map { $0.goNextPage }
+            .distinctUntilChanged()
+            .withLatestFrom(reactor.state.map { $0.nextPage })
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] nextPage in
+                guard let self = self else { return }
+                switch nextPage {
+                case .createTeamPage:
+                    self.goNextPage(nextPage: TeamCreateViewController())
+                case .joinTeamPage:
+                    self.goNextPage(nextPage: TeamCreateDetailViewController())
+                case .none:
+                    break
+                }
+        })
+        .disposed(by: disposeBag)
+    }
+
+    private func goNextPage(nextPage: UIViewController) {
+        navigationController?.pushViewController(nextPage, animated: true)
     }
 
     private func setupLayout() {
