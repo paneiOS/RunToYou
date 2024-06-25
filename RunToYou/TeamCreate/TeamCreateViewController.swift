@@ -121,7 +121,7 @@ final class TeamCreateViewController: UIViewController, View {
                 guard let self = self else { return }
                 switch nextPage {
                 case .createTeamPage:
-                    self.goNextPage(nextPage: TeamCreateViewController())
+                    self.goNextPage(nextPage: TeamCreateDetailViewController())
                 case .joinTeamPage:
                     self.goNextPage(nextPage: TeamJoinViewController())
                 case .none:
@@ -158,8 +158,8 @@ final class TeamCreateViewController: UIViewController, View {
             $0.height.equalTo(60)
         }
         nextButton.snp.makeConstraints {
-             $0.height.equalTo(55)
-             $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(55)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-20)
          }
     }
