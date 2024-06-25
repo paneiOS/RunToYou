@@ -10,14 +10,14 @@ import UIKit
 final class CustomDropDownTable: UITableView {
     // MARK: - Properties
     private let minHeight: CGFloat = 0
-    private let maxHeight: CGFloat = 192
+    private let maxHeight: CGFloat = 260
     // MARK: - Initializers
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        rowHeight = 32
-        layer.cornerRadius = 4
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.systemGray2.cgColor
+        rowHeight = 50
+        backgroundColor = .customColor(.mainGray)
+        layer.cornerRadius = 11
+        separatorStyle = .none
         separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         register(
             CustomDropDownCell.self,
