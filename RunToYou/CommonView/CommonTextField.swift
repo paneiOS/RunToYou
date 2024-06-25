@@ -23,7 +23,7 @@ final class CommonTextField: UITextField {
     }
 
     private func setupTextField() {
-        backgroundColor = UIColor(red: 241/255, green: 241/255, blue: 241/255, alpha: 1)
+        backgroundColor = .customColor(.mainGray)
         layer.cornerRadius = 11
         font = .customFont(.notoSans, family: .regular, size: 16)
     }
