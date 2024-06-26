@@ -8,14 +8,9 @@
 import UIKit
 import SnapKit
 import RxSwift
+import ReactorKit
 
-final class TeamCreateDetailViewController: UIViewController, CustomDropDownListener {
-    var dropDownViews: [CustomDropDownView]?
-
-    func dropdown(_ dropDown: CustomDropDownView, didSelectRowAt indexPath: IndexPath) {
-
-    }
-
+final class TeamCreateDetailViewController: UIViewController, CustomDropDownListener, View {
     private var buttonConfig: UIButton.Configuration = {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = .customColor(.mainGray)
@@ -80,12 +75,67 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
         return btn
     }()
 
-    private var disposeBag = DisposeBag()
-    private let dropDownView = CustomDropDownView()
+    private let goalStepDropDown = CustomDropDownView()
+    var dropDownViews: [CustomDropDownView]?
+    var disposeBag = DisposeBag()
+    typealias Reactor = TeamCreateDetailViewReactor
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.reactor = TeamCreateDetailViewReactor()
         setupLayout()
+    }
+
+    func bind(reactor: TeamCreateDetailViewReactor) {
+        //팀 이름 바인딩
+        teamNameTextField.rx.text
+            .map { Reactor.Action.createTeamName(text: $0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        //목표 걸음 수 드랍다운 토글
+        goalStepButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.hit(at: self.goalStepButton)
+            })
+            .disposed(by: disposeBag)
+        //목표 걸음 수 바인딩
+        goalStepDropDown.rx.selectedOption
+            .map { Reactor.Action.selectGoalStep(steps: $0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        //시작하기 버튼 탭 화면 이동
+        startButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.goNextPage()
+            })
+            .disposed(by: disposeBag)
+        //목표 걸음 수 선택시 변경
+        reactor.state.map { $0.selectedItem }
+            .subscribe(onNext: { [weak self] selectedItem in
+                guard let self = self else { return }
+                self.goalStepButton.setTitle(selectedItem, for: .normal)
+                self.goalStepButton.setTitleColor(.black, for: .normal)
+            })
+            .disposed(by: disposeBag)
+        //목표 걸음 수 목록 바인딩
+        reactor.state.map { $0.items }
+            .subscribe(onNext: { [weak self] items in
+                self?.goalStepDropDown.dataSource = items
+            })
+            .disposed(by: disposeBag)
+        //시작하기 버튼 활성/비활성화
+        reactor.state.map { $0.isNext }
+            .subscribe(onNext: { [weak self] isNext in
+                guard let self = self else { return }
+                if isNext {
+                    self.startButton.makeEnable()
+                } else {
+                    self.startButton.makeDisable()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func setupNavi() {
@@ -101,15 +151,8 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
     }
 
     private func setDropDown() {
-        registerDropDrownViews(dropDownView)
-        dropDownView.anchorView = goalStepButton
-        dropDownView.dataSource = [
-            "3,000 걸음",
-            "5,000 걸음",
-            "10,000 걸음",
-            "15,000 걸음",
-            "20,000 걸음"
-        ]
+        registerDropDrownViews(goalStepDropDown)
+        goalStepDropDown.anchorView = goalStepButton
     }
 
     private func setupLayout() {
@@ -124,7 +167,7 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
         let subviews = [
             titleLabel, teamNameLabel, teamNameDiscriptionLabel,
             teamNameTextField, goalStepLabel, goalStepButton,
-            dropDownView, startButton
+            goalStepDropDown, startButton
         ]
         subviews.forEach(view.addSubview)
     }
@@ -175,7 +218,7 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
             $0.centerY.equalToSuperview()
         }
 
-        dropDownView.setConstraints { [weak self] make in
+        goalStepDropDown.setConstraints { [weak self] make in
             guard let self = self else { return }
             make.leading.trailing.equalTo(goalStepButton)
             make.top.equalTo(goalStepButton.snp.bottom)
@@ -186,5 +229,11 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
+    }
+
+    func dropdown(_ dropDown: CustomDropDownView, didSelectRowAt indexPath: IndexPath) {
+    }
+    // TODO: 홈화면 이동
+    private func goNextPage() {
     }
 }
