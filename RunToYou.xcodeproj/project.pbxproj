@@ -35,6 +35,7 @@
 		6CB77DA52C296110005F3974 /* CustomDropDownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77DA42C296110005F3974 /* CustomDropDownListener.swift */; };
 		6CB77DA72C29616D005F3974 /* CustomDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77DA62C29616D005F3974 /* CustomDropDownView.swift */; };
 		6CB77DA92C2AB383005F3974 /* TeamCreateDetailViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77DA82C2AB383005F3974 /* TeamCreateDetailViewReactor.swift */; };
+		6CB77DAB2C2BE6BB005F3974 /* TeamJoinViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB77DAA2C2BE6BB005F3974 /* TeamJoinViewReactor.swift */; };
 		6CB8D3992C1A94E200980A64 /* TeamCreateViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CB8D3982C1A94E200980A64 /* TeamCreateViewReactor.swift */; };
 		6CD6CE102BF6F16C0090D084 /* AppAuthViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */; };
 		6CF57B422C0EC10E00AD78B2 /* TeamCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF57B412C0EC10E00AD78B2 /* TeamCreateViewController.swift */; };
@@ -66,6 +67,7 @@
 		6CB77DA42C296110005F3974 /* CustomDropDownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownListener.swift; sourceTree = "<group>"; };
 		6CB77DA62C29616D005F3974 /* CustomDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownView.swift; sourceTree = "<group>"; };
 		6CB77DA82C2AB383005F3974 /* TeamCreateDetailViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateDetailViewReactor.swift; sourceTree = "<group>"; };
+		6CB77DAA2C2BE6BB005F3974 /* TeamJoinViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamJoinViewReactor.swift; sourceTree = "<group>"; };
 		6CB8D3982C1A94E200980A64 /* TeamCreateViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateViewReactor.swift; sourceTree = "<group>"; };
 		6CD6CE0F2BF6F16C0090D084 /* AppAuthViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAuthViewReactor.swift; sourceTree = "<group>"; };
 		6CF57B412C0EC10E00AD78B2 /* TeamCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCreateViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				6CB77D992C293003005F3974 /* TeamCreateDetailViewController.swift */,
 				6CB77DA82C2AB383005F3974 /* TeamCreateDetailViewReactor.swift */,
 				6CB77D9B2C294C7F005F3974 /* TeamJoinViewController.swift */,
+				6CB77DAA2C2BE6BB005F3974 /* TeamJoinViewReactor.swift */,
 			);
 			path = TeamCreate;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				6CB77D9A2C293003005F3974 /* TeamCreateDetailViewController.swift in Sources */,
 				6C7D743F2BEB2C040099CD15 /* UIFont+.swift in Sources */,
 				39E6F0E52BD68BAB00C8D4C9 /* SceneDelegate.swift in Sources */,
+				6CB77DAB2C2BE6BB005F3974 /* TeamJoinViewReactor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

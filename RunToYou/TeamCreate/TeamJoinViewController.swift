@@ -7,8 +7,9 @@
 
 import UIKit
 import SnapKit
+import ReactorKit
 
-class TeamJoinViewController: UIViewController {
+class TeamJoinViewController: UIViewController, View {
     private let titleLabel = {
         let label = UILabel()
         label.text = "기존의 팀에 가입하시는군요!\n런투유와 함께 즐겁게 달려보세요."
@@ -37,10 +38,42 @@ class TeamJoinViewController: UIViewController {
         btn.setTitle("시작하기", for: .normal)
         return btn
     }()
+    
+    typealias Reactor = TeamJoinViewReactor
+    var disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.reactor = TeamJoinViewReactor()
         setupLayout()
+    }
+
+    func bind(reactor: TeamJoinViewReactor) {
+        // 시작하기 버튼 탭 화면 이동
+        startButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.goNextPage()
+            })
+            .disposed(by: disposeBag)
+
+        // 초대코드 바인딩
+        inviteCodeTextField.rx.text
+            .map { Reactor.Action.inputInviteCode(code: $0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
+        // 시작하기 버튼 활성/비활성화
+        reactor.state.map { $0.isNext }
+            .subscribe(onNext: { [weak self] isNext in
+                guard let self = self else { return }
+                if isNext {
+                    self.startButton.makeEnable()
+                } else {
+                    self.startButton.makeDisable()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     private func setupLayout() {
@@ -94,5 +127,8 @@ class TeamJoinViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
+    }
+    // TODO: 홈화면 이동
+    private func goNextPage() {
     }
 }
