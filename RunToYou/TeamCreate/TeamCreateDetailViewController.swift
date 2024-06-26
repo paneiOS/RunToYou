@@ -87,31 +87,31 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
     }
 
     func bind(reactor: TeamCreateDetailViewReactor) {
-        //팀 이름 바인딩
+        // 팀 이름 바인딩
         teamNameTextField.rx.text
             .map { Reactor.Action.createTeamName(text: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        //목표 걸음 수 드랍다운 토글
+        // 목표 걸음 수 드랍다운 토글
         goalStepButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.hit(at: self.goalStepButton)
             })
             .disposed(by: disposeBag)
-        //목표 걸음 수 바인딩
+        // 목표 걸음 수 바인딩
         goalStepDropDown.rx.selectedOption
             .map { Reactor.Action.selectGoalStep(steps: $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        //시작하기 버튼 탭 화면 이동
+        // 시작하기 버튼 탭 화면 이동
         startButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.goNextPage()
             })
             .disposed(by: disposeBag)
-        //목표 걸음 수 선택시 변경
+        // 목표 걸음 수 선택시 변경
         reactor.state.map { $0.selectedItem }
             .subscribe(onNext: { [weak self] selectedItem in
                 guard let self = self else { return }
@@ -119,13 +119,13 @@ final class TeamCreateDetailViewController: UIViewController, CustomDropDownList
                 self.goalStepButton.setTitleColor(.black, for: .normal)
             })
             .disposed(by: disposeBag)
-        //목표 걸음 수 목록 바인딩
+        // 목표 걸음 수 목록 바인딩
         reactor.state.map { $0.items }
             .subscribe(onNext: { [weak self] items in
                 self?.goalStepDropDown.dataSource = items
             })
             .disposed(by: disposeBag)
-        //시작하기 버튼 활성/비활성화
+        // 시작하기 버튼 활성/비활성화
         reactor.state.map { $0.isNext }
             .subscribe(onNext: { [weak self] isNext in
                 guard let self = self else { return }
